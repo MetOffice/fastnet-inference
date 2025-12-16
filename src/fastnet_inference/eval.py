@@ -1,7 +1,7 @@
 import torch
 import numpy
 import logging
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, Dataset
 from dataclasses import dataclass
 from fastnet_inference.data import AnemoiERA5Dataset 
 from fastnet_inference.variables import FORECAST_VARS_ORDER_FASTNET 
@@ -55,11 +55,25 @@ def full_loop(config: Config):
     )
 
     def unnormalize(batch):
-        return batch * ds.std + ds.mean
+        return batch * ds.std[:F_LEN] + ds.mean[:F_LEN]
 
     dl = DataLoader(ds, batch_size=config.batch_size, num_workers=config.num_workers)
 
     for batch in dl:
         predictions = _rollout_loop(model, batch)
-        return predictions.shape
+        # for i in range(predictions.shape[-1]):
+        #     data = predictions[..., i]
+        #     print(torch.min(data), torch.max(data))
+        predictions = unnormalize(predictions)
+        _plot(predictions, ds)
 
+def _plot(predictions: torch.Tensor, ds: AnemoiERA5Dataset) -> None:
+    import matplotlib.pyplot as plt
+    import cartopy.crs as ccrs
+
+    fig, ax = plt.subplots(subplot_kw={"projection": ccrs.PlateCarree()})
+    p = ax.scatter(x=ds.ds.longitudes, y=ds.ds.latitudes, c=predictions[0, 1, :, 3])
+    ax.coastlines()
+    ax.gridlines(draw_labels=True)
+    plt.colorbar(p, label="K", orientation="horizontal")
+    plt.savefig("test.png")
