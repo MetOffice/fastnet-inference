@@ -1,0 +1,18 @@
+# note: took around 6min 15sec to build
+name: era5-subset
+dates:
+  start: '2015-01-01T00:00:00'
+  end: '2015-01-01T23:00:00'
+  frequency: 6h
+
+statistics:
+  start: '2015-01-01T00:00:00'
+  end: '2015-01-01T23:00:00'
+
+input:
+  pipe:
+    - anemoi_dataset:
+        dataset: https://data.ecmwf.int/anemoi-datasets/era5-o96-1979-2023-6h-v8.zarr
+    - z_to_orog:
+        orography: orography 
+        geopotential: z
