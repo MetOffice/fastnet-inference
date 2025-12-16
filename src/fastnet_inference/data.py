@@ -1,3 +1,11 @@
+"""Define data-related functions and classes.
+
+Note: the Dataset defined here loads rollout_steps data points for every timestep.
+
+That means that there's rollout_steps - 1 redundant I/O calls that aren't cached for every lead time.
+Improving this would be desirable in a high-throughput scenario.
+(e.g. loading chunks of data and accessing those multiple times in an IterableDataset).
+"""
 import numpy as np
 import torch
 from torch.utils.data import Dataset
