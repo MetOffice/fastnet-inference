@@ -8,13 +8,17 @@ authors = [
 ]
 requires-python = ">=3.11"
 dependencies = [
-    "anemoi-datasets>=0.5.28",
-    "anemoi-training>=0.8.1",
+    "anemoi-datasets==0.5.28",
     "cartopy>=0.25.0",
-    "jaxtyping>=0.3.3",
-    "torch>=2.9.1",
+    "pytest>=9.0.2",
+    "torch>=2.6",
 ]
 
 [build-system]
 requires = ["uv_build>=0.9.13,<0.10.0"]
 build-backend = "uv_build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config"]
+xfail_strict = true

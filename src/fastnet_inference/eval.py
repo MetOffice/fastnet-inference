@@ -4,12 +4,10 @@ from pathlib import Path
 from torch.utils.data import DataLoader
 from dataclasses import dataclass
 from fastnet_inference.data import get_fastnet_var_order, AnemoiERA5Dataset
-from fastnet_inference.variables import FORECAST_VARS_ORDER_FASTNET
 from fastnet_inference.output import create_output_store, write_batch
 
 
 logger = logging.getLogger(__name__)
-F_LEN = len(FORECAST_VARS_ORDER_FASTNET)
 DEVICE = "cpu"
 
 
@@ -28,10 +26,11 @@ class InferenceConfig:
 
 @torch.inference_mode
 def _rollout_loop(
-    model: torch.nn.Module, batch: torch.Tensor, rollout_steps: int
+    model: torch.nn.Module,
+    forecast_features: torch.Tensor,
+    non_forecast_features: torch.Tensor,
+    rollout_steps: int,
 ) -> torch.Tensor:
-    # FastNet expects forecast vars & forcings/constants as separate inputs
-    forecast_features, non_forecast_features = batch[..., :F_LEN], batch[..., F_LEN:]
     # make tensor for outputs: batch, rollout, grid, variable
     B, _, G, V = forecast_features.shape
     forecasts = torch.empty(B, rollout_steps, G, V)
@@ -81,7 +80,11 @@ def run_inference(config: InferenceConfig):
     )
 
     # define post-processing logic
-    forecast_mean, forecast_std = ds.mean[:F_LEN], ds.std[:F_LEN]
+    num_forecast_vars = len(forecast_vars)
+    forecast_mean, forecast_std = (
+        ds.mean[:num_forecast_vars],
+        ds.std[:num_forecast_vars],
+    )
 
     def unnormalize(batch):
         return batch * forecast_std + forecast_mean
@@ -97,7 +100,17 @@ def run_inference(config: InferenceConfig):
     for batch, idxs in dl:
         init_time = ds.ds.dates[idxs]
         logger.info("Rolling out from %s...", init_time)
-        predictions = _rollout_loop(model, batch, config.rollout_steps)
+        # FastNet expects forecast vars & forcings/constants as separate inputs
+        forecast_features, non_forecast_features = (
+            batch[..., :num_forecast_vars],
+            batch[..., num_forecast_vars:],
+        )
+        predictions = _rollout_loop(
+            model=model,
+            forecast_features=forecast_features,
+            non_forecast_features=non_forecast_features,
+            rollout_steps=config.rollout_steps,
+        )
         logger.info(
             "...model evaluated!",
         )
