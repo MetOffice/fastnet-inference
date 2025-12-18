@@ -1,19 +1,16 @@
-"""Pytest fixtures for fastnet-inference tests."""
-
-from pathlib import Path
-
 import numpy as np
 import pytest
 import zarr
+from pathlib import Path
 
 
 def create_synthetic_anemoi_zarr(
     path: Path,
     variables: list[str],
-    n_times: int = 8,
-    n_gridpoints: int = 500,
+    n_times: int,
+    n_gridpoints: int,
     freq_hours: int = 6,
-    seed: int = 42,
+    seed: int = 670,
 ) -> Path:
     """
     Create minimal anemoi-compatible zarr for testing.
@@ -59,7 +56,7 @@ def create_synthetic_anemoi_zarr(
     root.create_dataset("count", data=count)
     root.create_dataset("has_nans", data=has_nans)
 
-    # Minimal required attributes
+    # Required attributes
     root.attrs.update(
         {
             "version": "0.30",
@@ -92,5 +89,5 @@ def synthetic_era5(tmp_path) -> Path:
         path=tmp_path / "synthetic_era5.zarr",
         variables=variables,
         n_times=3,
-        n_gridpoints=40320,
+        n_gridpoints=40320,  # O96
     )
