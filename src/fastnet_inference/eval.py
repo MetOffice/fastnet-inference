@@ -14,7 +14,7 @@ DEVICE = "cpu"
 
 
 @dataclass
-class Config:
+class InferenceConfig:
     dataset_path: str
     inference_model_path: str
     batch_size: int
@@ -49,7 +49,13 @@ def _rollout_loop(
     return forecasts
 
 
-def full_loop(config: Config):
+def run_inference(config: InferenceConfig):
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+    )
+
     # model = load_model(device=DEVICE)
     model = torch.jit.load("model_file_cpu")
 
@@ -63,7 +69,18 @@ def full_loop(config: Config):
         end=config.end_time,
         rollout_steps=config.rollout_steps,
     )
+    # write-out empty zarr store of correct shape
+    create_output_store(
+        path=config.output_path,
+        init_times=ds.ds.dates[: len(ds)],  # accounts for rollout_steps
+        rollout_steps=config.rollout_steps,
+        variables=forecast_vars,
+        lats=ds.ds.latitudes,
+        lons=ds.ds.longitudes,
+        freq_hours=config.freq_hours,
+    )
 
+    # define post-processing logic
     forecast_mean, forecast_std = ds.mean[:F_LEN], ds.std[:F_LEN]
 
     def unnormalize(batch):
@@ -74,21 +91,20 @@ def full_loop(config: Config):
         # output dataset has (init_time, lead_time, variable, grid) dim order
         return batch.permute(0, 1, 3, 2)
 
+    # loop through data
     dl = DataLoader(ds, batch_size=config.batch_size, num_workers=config.num_workers)
 
-    create_output_store(
-        path=config.output_path,
-        init_times=ds.ds.dates[: len(ds)],  # accounts for rollout_steps
-        rollout_steps=config.rollout_steps,
-        variables=forecast_vars,
-        lats=ds.ds.latitudes,
-        lons=ds.ds.longitudes,
-        freq_hours=config.freq_hours,
-    )
     for batch, idxs in dl:
+        init_time = ds.ds.dates[idxs]
+        logger.info("Rolling out from %s...", init_time)
         predictions = _rollout_loop(model, batch, config.rollout_steps)
+        logger.info(
+            "...model evaluated!",
+        )
         predictions = postprocess(predictions.cpu())
-        print(predictions.shape)
+        logger.info(
+            "Writing predictions from %s to %s...", init_time, config.output_path
+        )
         write_batch(config.output_path, predictions, idxs)
 
 
