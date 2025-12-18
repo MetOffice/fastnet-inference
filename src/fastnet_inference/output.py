@@ -11,6 +11,7 @@ References:
 import numpy as np
 import xarray as xr
 from pathlib import Path
+from collections.abc import Sequence
 
 
 def create_output_store(
@@ -27,6 +28,7 @@ def create_output_store(
 
     In distributed setting, call from rank 0 only, then barrier before writes.
     """
+
     n_samples = len(init_times)
     n_vars = len(variables)
     n_gridpoints = len(lats)
@@ -43,30 +45,27 @@ def create_output_store(
     }
 
     # Coordinates: dimension coords are just arrays, non-dimension coords use (dim, data) tuple
+    lead_time_hours = np.arange(1, rollout_steps + 1) * freq_hours
+    lead_time_td = lead_time_hours.astype("timedelta64[h]")
+
     coords = {
         "init_time": init_times,
-        "lead_time": np.arange(1, rollout_steps + 1) * freq_hours,
+        "lead_time": lead_time_td,
         "variable": variables,
         "latitude": ("grid", lats),
         "longitude": ("grid", lons),
     }
 
     ds = xr.Dataset(data_vars, coords=coords)
-    ds["lead_time"].attrs["units"] = "hours"
-
-    # Chunk by single init_time for safe concurrent writes
-    # -1 means "entire dimension in one chunk"
-    chunks = {"init_time": 1, "lead_time": -1, "variable": -1, "grid": -1}
 
     # mode="w" creates new store (overwrites if exists)
-    # compute=False writes structure only, no data
-    ds.chunk(chunks).to_zarr(path, mode="w", compute=False)
+    ds.to_zarr(path, mode="w")
 
 
 def write_batch(
     path: Path,
     forecasts: np.ndarray,
-    idxs: list[int] | np.ndarray,
+    idxs: Sequence[int],
 ) -> None:
     """
     Write a batch of forecasts to pre-allocated store.
@@ -76,18 +75,14 @@ def write_batch(
         forecasts: (batch, rollout_steps, variable, gridpoints) array
         idxs: Init_time indices for this batch (list, array, or tensor)
     """
-    # Handle torch tensor of indices from DataLoader
-    if hasattr(idxs, "tolist"):
-        idxs = idxs.tolist()
-
-    # Minimal dataset for region write - coords not needed
+    # minimal dataset for region write - coords not needed
     ds = xr.Dataset(
         {"forecast": (["init_time", "lead_time", "variable", "grid"], forecasts)}
     )
 
-    # mode="r+" for modifying existing store (default for region writes)
-    # Region write is safe for concurrent access when writing to distinct chunks
-    start_idx, end_idx = idxs[0], idxs[-1] + 1
+    # region write is safe for concurrent access when init_times are unique
+    start_idx = idxs[0]
+    end_idx = idxs[-1] + 1  # slice end is exclusive
     ds.to_zarr(
         path,
         mode="r+",

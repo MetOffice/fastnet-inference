@@ -14,5 +14,5 @@ input:
     - anemoi_dataset:
         dataset: https://data.ecmwf.int/anemoi-datasets/era5-o96-1979-2023-6h-v8.zarr
     - z_to_orog:
-        orography: orography 
+        orography: orography
         geopotential: z

@@ -10,7 +10,6 @@ import numpy as np
 import torch
 from torch.utils.data import Dataset
 from anemoi.datasets import open_dataset
-from anemoi.datasets.data.dataset import Dataset as AnemoiDataset
 
 from fastnet_inference.variables import (
     FORECAST_VARS_ORDER_FASTNET,
@@ -19,40 +18,37 @@ from fastnet_inference.variables import (
 )
 
 
-def _load_anemoi_era5(
-    dataset_path: str, start: str | None, end: str | None
-) -> AnemoiDataset:
-    ordered_vars: list[str] = []
+def get_fastnet_var_order() -> tuple[list[str], list[str]]:
+    forecast_ordered_vars: list[str] = []
+    nonforecast_ordered_vars: list[str] = []
     for var, level in FORECAST_VARS_ORDER_FASTNET:
         short_name = LONGHAND_VARIABLE_TO_ANEMOI_ERA5_SHORTHAND[var]
         if level != 0:
             short_name += f"_{level}"
-        ordered_vars.append(short_name)
+        forecast_ordered_vars.append(short_name)
 
     for var, level in NONFORECAST_VARS_ORDER_FASTNET:
         short_name = LONGHAND_VARIABLE_TO_ANEMOI_ERA5_SHORTHAND[var]
         if level != 0:
             short_name += f"_{level}"
-        ordered_vars.append(short_name)
-
-    return open_dataset(dataset_path, select=ordered_vars, start=start, end=end)
+        nonforecast_ordered_vars.append(short_name)
+    return forecast_ordered_vars, nonforecast_ordered_vars
 
 
 class AnemoiERA5Dataset(Dataset):
     def __init__(
         self,
         dataset_path: str,
+        forecast_vars: list[str],
+        nonforecast_vars: list[str],
         start: str | None = None,
         end: str | None = None,
         rollout_steps: int = 0,
     ) -> None:
         # will load data with feature dim order of:
         # forecast features, then nonforecast features
-        self.ds = _load_anemoi_era5(
-            dataset_path=dataset_path,
-            start=start,
-            end=end,
-        )
+        ordered_vars = [*forecast_vars, *nonforecast_vars]
+        self.ds = open_dataset(dataset_path, select=ordered_vars, start=start, end=end)
         if len(np.unique(np.diff(self.ds.dates))) > 1:
             msg = "Time periods in specified time range are not contiguous!"
             raise ValueError(msg)

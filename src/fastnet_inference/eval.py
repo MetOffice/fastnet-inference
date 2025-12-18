@@ -3,7 +3,7 @@ import logging
 from pathlib import Path
 from torch.utils.data import DataLoader
 from dataclasses import dataclass
-from fastnet_inference.data import AnemoiERA5Dataset
+from fastnet_inference.data import get_fastnet_var_order, AnemoiERA5Dataset
 from fastnet_inference.variables import FORECAST_VARS_ORDER_FASTNET
 from fastnet_inference.output import create_output_store, write_batch
 
@@ -27,12 +27,13 @@ class Config:
 
 
 @torch.inference_mode
-def _rollout_loop(model: torch.nn.Module, batch: torch.Tensor) -> torch.Tensor:
+def _rollout_loop(
+    model: torch.nn.Module, batch: torch.Tensor, rollout_steps: int
+) -> torch.Tensor:
     # FastNet expects forecast vars & forcings/constants as separate inputs
     forecast_features, non_forecast_features = batch[..., :F_LEN], batch[..., F_LEN:]
     # make tensor for outputs: batch, rollout, grid, variable
     B, _, G, V = forecast_features.shape
-    rollout_steps = non_forecast_features.shape[1]
     forecasts = torch.empty(B, rollout_steps, G, V)
     # get initial condition
     current_state = forecast_features[:, 0]
@@ -45,15 +46,19 @@ def _rollout_loop(model: torch.nn.Module, batch: torch.Tensor) -> torch.Tensor:
             current_state,  # autoregressive loop
         ).squeeze(1)
         forecasts[:, t] = current_state
-
     return forecasts
 
 
 def full_loop(config: Config):
     # model = load_model(device=DEVICE)
     model = torch.jit.load("model_file_cpu")
+
+    # data setup
+    forecast_vars, nonforecast_vars = get_fastnet_var_order()
     ds = AnemoiERA5Dataset(
         dataset_path=config.dataset_path,
+        forecast_vars=forecast_vars,
+        nonforecast_vars=nonforecast_vars,
         start=config.start_time,
         end=config.end_time,
         rollout_steps=config.rollout_steps,
@@ -73,16 +78,17 @@ def full_loop(config: Config):
 
     create_output_store(
         path=config.output_path,
-        init_times=ds.ds.dates[:len(ds)],  # accounts for rollout_steps
+        init_times=ds.ds.dates[: len(ds)],  # accounts for rollout_steps
         rollout_steps=config.rollout_steps,
-        variables=ds.ds.variables,
+        variables=forecast_vars,
         lats=ds.ds.latitudes,
         lons=ds.ds.longitudes,
         freq_hours=config.freq_hours,
     )
     for batch, idxs in dl:
-        predictions = _rollout_loop(model, batch)
+        predictions = _rollout_loop(model, batch, config.rollout_steps)
         predictions = postprocess(predictions.cpu())
+        print(predictions.shape)
         write_batch(config.output_path, predictions, idxs)
 
 

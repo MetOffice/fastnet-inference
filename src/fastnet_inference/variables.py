@@ -32,7 +32,6 @@ LONGHAND_VARIABLE_TO_ANEMOI_ERA5_SHORTHAND = {
     "cos_local_time": "cos_local_time",
     "cos_julian_day": "cos_julian_day",
     "sin_julian_day": "sin_julian_day",
-    "orography": "orography",
     "cos_lat": "cos_latitude",
     "cos_lon": "cos_longitude",
     "sin_lat": "sin_latitude",
