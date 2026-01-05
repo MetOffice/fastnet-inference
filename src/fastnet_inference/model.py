@@ -1,9 +1,11 @@
 import torch
+import logging
 from enum import StrEnum
 from huggingface_hub import hf_hub_download
 
 
 HF_ACCOUNT_NAME = "phinate"
+logger = logging.getLogger(__name__)
 
 
 class ModelFilename(StrEnum):
@@ -21,5 +23,13 @@ def load_model(version: float = 1.1, device: str = "cpu") -> torch.nn.Module:
         msg = "Invalid device: expected 'cpu' or 'cuda'/'cuda:x' (integer x)"
         raise ValueError(msg)
     repo_name = f"{HF_ACCOUNT_NAME}/FastNet-v{version}"
+    logger.info(
+        "Downloading FastNet v%s... (will use cached model if already downloaded)",
+        version,
+    )
     model_path = hf_hub_download(repo_id=repo_name, filename=model_filename)
-    return torch.jit.load(model_path, map_location=device)
+    logger.info("Model downloaded!")
+    logger.info("Loading model on device %s...", device)
+    model = torch.jit.load(model_path, map_location=device)
+    logger.info("Model loaded on %s successfully.", device)
+    return model
