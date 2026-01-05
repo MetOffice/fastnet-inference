@@ -10,6 +10,7 @@ requires-python = ">=3.11"
 dependencies = [
     "anemoi-datasets==0.5.28",
     "cartopy>=0.25.0",
+    "huggingface-hub>=1.2.3",
     "pytest>=9.0.2",
     "torch>=2.6",
 ]

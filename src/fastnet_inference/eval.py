@@ -5,6 +5,7 @@ from torch.utils.data import DataLoader
 from dataclasses import dataclass
 from fastnet_inference.data import get_fastnet_var_order, AnemoiERA5Dataset
 from fastnet_inference.output import create_output_store, write_batch
+from fastnet_inference.model import load_model
 
 
 logger = logging.getLogger(__name__)
@@ -22,6 +23,7 @@ class InferenceConfig:
     start_time: str | None = None
     end_time: str | None = None
     freq_hours: int = 6
+    model_version = 1.1
 
 
 @torch.inference_mode
@@ -55,8 +57,8 @@ def run_inference(config: InferenceConfig):
         datefmt="%Y-%m-%d %H:%M:%S",
     )
 
-    # model = load_model(device=DEVICE)
-    model = torch.jit.load("model_file_cpu")
+    model = load_model(version=config.model_version, device=DEVICE)
+    # model = torch.jit.load("model_file_cpu")
 
     # data setup
     forecast_vars, nonforecast_vars = get_fastnet_var_order()

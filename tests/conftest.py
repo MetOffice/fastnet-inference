@@ -15,6 +15,10 @@ def create_synthetic_anemoi_zarr(
     """
     Create minimal anemoi-compatible zarr for testing.
 
+    NOTE: This was reverse-engineered to match the spec of the dataset generated with anemoi-datasets==0.5.28.
+          It may be that this fails in future if this package is updated.
+          Including a small file in the repo that is re-generated with future anemoi-datasets versions is also a solution.
+
     Generates random data with computed statistics.
     """
     rng = np.random.default_rng(seed)
