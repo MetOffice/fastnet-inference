@@ -746,6 +746,7 @@ dependencies = [
     { name = "cartopy" },
     { name = "h5py" },
     { name = "huggingface-hub" },
+    { name = "netcdf4" },
     { name = "pytest" },
     { name = "torch" },
 ]
@@ -762,6 +763,7 @@ requires-dist = [
     { name = "cartopy", specifier = ">=0.25.0" },
     { name = "h5py" },
     { name = "huggingface-hub", specifier = ">=1.2.3" },
+    { name = "netcdf4", specifier = "<=1.7.3" },
     { name = "pytest", specifier = ">=9.0.2" },
     { name = "torch", specifier = ">=2.6" },
 ]
