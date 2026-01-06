@@ -13,8 +13,6 @@ dependencies = [
     "huggingface-hub>=1.2.3",
     "pytest>=9.0.2",
     "torch>=2.6",
-    "h5py",
-    "netcdf4<=1.7.3",
 ]
 
 [build-system]
