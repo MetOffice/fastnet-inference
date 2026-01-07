@@ -1,0 +1,32 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+experiment_name: fastnet-inference 
+
+code: ../../..
+
+command: >-
+  cd fastnet-inference &&
+  uv run fastnet-inference inference-config.yaml
+  --dataset-path=${{inputs.data_folder}}/${{inputs.data_file}}
+
+# relative to the anemoi/fastnet-current/ folder
+inputs:
+  data_folder:
+    type: uri_folder
+    path: azureml:era5-native-grid:4
+  data_file: "aifs-ea-an-oper-0001-mars-o96-1979-2023-6h-v8.zarr"
+
+environment_variables:
+  HF_TOKEN: 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
+
+environment:
+  image: ghcr.io/astral-sh/uv:python3.12-bookworm
+
+compute: "AI4NWP-Readiness-A100"
+
+resources:
+  instance_count: 1
+  shm_size: 200G
+
+distribution:
+  type: pytorch
+  process_count_per_instance: 1

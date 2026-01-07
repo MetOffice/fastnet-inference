@@ -1,7 +1,7 @@
-
-dataset_path: "era5-o96-2015-01-01-6h-v8.zarr"
-batch_size: 8
-num_workers: 0
-rollout_steps: 3
-output_path: "forecasts.zarr"
+start: "2022-01-01"
+end: "2022-12-31"
+batch_size: 64 
+num_workers: 8
+rollout_steps: 40 
+output_path: "outputs/forecasts.zarr"
 freq_hours: 6

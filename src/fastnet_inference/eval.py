@@ -22,8 +22,8 @@ class InferenceConfig:
     num_workers: int
     rollout_steps: int
     output_path: Path = Path(".") / "outputs"
-    start_time: str | None = None
-    end_time: str | None = None
+    start: str | None = None
+    end: str | None = None
     freq_hours: int = 6
     model_version = 1.1
 
@@ -74,8 +74,8 @@ def run_inference(config: InferenceConfig):
         dataset_path=config.dataset_path,
         forecast_vars=forecast_vars,
         nonforecast_vars=nonforecast_vars,
-        start=config.start_time,
-        end=config.end_time,
+        start=config.start,
+        end=config.end,
         rollout_steps=config.rollout_steps,
     )
     # write-out empty zarr store of correct shape
