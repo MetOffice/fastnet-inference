@@ -33,17 +33,6 @@ def create_output_store(
     n_vars = len(variables)
     n_gridpoints = len(lats)
 
-    # Data variable: tuple of (dims, data)
-    # See: https://docs.xarray.dev/en/stable/user-guide/data-structures.html
-    data_vars = {
-        "forecast": (
-            ["init_time", "lead_time", "variable", "grid"],
-            np.empty(
-                (n_samples, rollout_steps, n_vars, n_gridpoints), dtype=np.float32
-            ),
-        )
-    }
-
     # Coordinates: dimension coords are just arrays, non-dimension coords use (dim, data) tuple
     lead_time_hours = np.arange(1, rollout_steps + 1) * freq_hours
     lead_time_td = lead_time_hours.astype("timedelta64[h]")
@@ -56,10 +45,29 @@ def create_output_store(
         "longitude": ("grid", lons),
     }
 
-    ds = xr.Dataset(data_vars, coords=coords)
+    # Create dataset with no data variable yet - just coordinates
+    ds = xr.Dataset(coords=coords)
 
-    # mode="w" creates new store (overwrites if exists)
-    ds.to_zarr(path, mode="w")
+    # Define shape and encoding for the forecast variable
+    shape = (n_samples, rollout_steps, n_vars, n_gridpoints)
+    # Chunk by init_time=1 to enable safe concurrent writes
+    encoding = {
+        "forecast": {
+            "chunks": (1, rollout_steps, n_vars, n_gridpoints),
+            "dtype": np.float32,
+        }
+    }
+
+    # Add forecast variable with placeholder data using dask to avoid memory allocation
+    import dask.array as da
+
+    ds["forecast"] = (
+        ["init_time", "lead_time", "variable", "grid"],
+        da.zeros(shape, dtype=np.float32, chunks=encoding["forecast"]["chunks"]),
+    )
+
+    # mode="w" creates new store, compute=False writes only metadata/structure
+    ds.to_zarr(path, mode="w", compute=False, encoding=encoding)
 
 
 def write_batch(
