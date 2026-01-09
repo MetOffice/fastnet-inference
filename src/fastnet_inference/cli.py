@@ -52,5 +52,7 @@ def run_pipeline(
         if dataset_path is not None:
             cfg["dataset_path"] = dataset_path
         config = InferenceConfig(**cfg)
+    print(dataset_path)
+    print(config)
     run_inference(config)
     inspect_output(config.dataset_path)

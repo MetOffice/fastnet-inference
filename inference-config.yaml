@@ -1,7 +1,7 @@
 start: "2022-01-01"
 end: "2022-12-31"
-batch_size: 64 
+batch_size: 32 
 num_workers: 8
 rollout_steps: 40 
-output_path: "outputs/forecasts.zarr"
+output_path: "../outputs/forecasts.zarr"
 freq_hours: 6
