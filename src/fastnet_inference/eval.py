@@ -1,18 +1,31 @@
 import torch
 import logging
+import os
+import zarr
 from pathlib import Path
 from torch.utils.data import DataLoader
+from torch import distributed as dist
 from dataclasses import dataclass
 from rich.logging import RichHandler
 from rich.progress import track
 
-from fastnet_inference.data import get_fastnet_var_order, AnemoiERA5Dataset
+from fastnet_inference.data import get_fastnet_var_order, AnemoiERA5Dataset, create_dataloader
 from fastnet_inference.output import create_output_store, write_batch
 from fastnet_inference.model import load_model
 
 
 logger = logging.getLogger(__name__)
-DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+
+# see if we're in torchrun context
+local_rank = os.environ.get("LOCAL_RANK", None)  # local rank = GPU id within a node
+if local_rank is not None:
+    local_rank = int(local_rank)
+    DEVICE = f"cuda:{local_rank}"  # define device via local rank
+else:
+    DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+world_size = int(os.environ.get("WORLD_SIZE", 1))
+is_distributed = world_size > 1
+rank = int(os.environ.get("RANK", 0))  # global
 
 
 @dataclass
@@ -26,6 +39,7 @@ class InferenceConfig:
     end: str | None = None
     freq_hours: int = 6
     model_version = 1.1
+    zip: bool = False
 
     def __post_init__(self):
         # auto-convert str for convenience
@@ -66,7 +80,11 @@ def run_inference(config: InferenceConfig):
     logger.info("Running inference with the following settings:")
     logger.info("%r", config)
     model = load_model(version=config.model_version, device=DEVICE)
-    # model = torch.jit.load("model_file_cpu")
+
+    # handle distributed
+    if is_distributed:
+        backend = "gloo" if DEVICE == "cpu" else "nccl"
+        dist.init_process_group(backend=backend)
 
     # data setup
     forecast_vars, nonforecast_vars = get_fastnet_var_order()
@@ -107,7 +125,7 @@ def run_inference(config: InferenceConfig):
         return batch.permute(0, 1, 3, 2)
 
     # loop through data
-    dl = DataLoader(
+    dl = create_dataloader(
         ds,
         batch_size=config.batch_size,
         num_workers=config.num_workers,
@@ -115,6 +133,16 @@ def run_inference(config: InferenceConfig):
     )
 
     for batch, idxs in track(dl, "Running inference..."):
+        batch_idx = idxs[0] // config.batch_size 
+        # The condition below will only happen after one epoch; leftover batches will start again
+        # from 0, and it won't necessarily be on rank 0. This is default behaviour,
+        # since DDP training needs to all_reduce across all devices when syncing gradients;
+        # the other devices need to process *something*.
+        # We want to skip this wrap-around since we're just doing inference!
+        if batch_idx % world_size != rank:
+            print(f"skipping {batch_idx=}, {rank=}")
+            # another rank is already responsible for this batch
+            continue
         init_time = ds.ds.dates[idxs]
         logger.info("Rolling out from %s", init_time)
         # FastNet expects forecast vars & forcings/constants as separate inputs
@@ -142,7 +170,13 @@ def run_inference(config: InferenceConfig):
         )
         write_batch(config.output_path, predictions, idxs)
     logger.info("Inference complete! Results have been saved to %s", config.output_path)
-
+    dist.barrier()
+    zarr.consolidate_metadata(config.output_path.with_suffix(".zarr"))
+    if config.zip:
+        import shutil
+        outfile_name = str(config.output_path)
+        shutil.make_archive(outfile_name, "zip", base_dir=config.output_path.with_suffix(".zarr"))
+        logger.info("Since {config.zip=}, results also compressed to %s", outfile_name + ".zip.")
 
 def _plot(predictions: torch.Tensor, ds: AnemoiERA5Dataset) -> None:
     import matplotlib.pyplot as plt

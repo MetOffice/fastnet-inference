@@ -8,7 +8,8 @@ Improving this would be desirable in a high-throughput scenario.
 
 import numpy as np
 import torch
-from torch.utils.data import Dataset
+from torch import distributed as dist
+from torch.utils.data import Dataset, Dataloader
 from anemoi.datasets import open_dataset
 
 from fastnet_inference.variables import (
@@ -75,3 +76,26 @@ class AnemoiERA5Dataset(Dataset):
         # normalize by stats (anemoi-datasets yaml recipe controls window for stats calc)
         normalized = ((batch - self.mean) / self.std).float()
         return normalized, idx
+
+
+def create_dataloader(dataset: Dataset, batch_size: int, num_workers: int, **kwargs) -> Dataloader:
+    """Check to see if we're in a distributed / GPU context, and init accordingly."""
+    sampler = None
+    # check dist context
+    if dist.is_available() and dist.is_initialized():
+        sampler = dist.DistributedSampler(
+            dataset,
+            rank=dist.get_rank(),
+            num_replicas=dist.get_world_size(),
+            shuffle=False,
+            drop_last=False,
+        )
+    return Dataloader(
+        dataset,
+        batch_size=batch_size,
+        num_workers=num_workers,
+        pin_memory=torch.cuda.is_available(),
+        sampler=sampler,
+        **kwargs,
+    )
+
