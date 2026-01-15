@@ -1,18 +1,18 @@
-import torch
 import logging
 import os
-import zarr
-from pathlib import Path
-from torch.utils.data import DataLoader
-from torch import distributed as dist
 from dataclasses import dataclass
+from pathlib import Path
+
+import torch
+import zarr
 from rich.logging import RichHandler
 from rich.progress import track
+from torch import distributed as dist
+from torch.utils.data import DataLoader
 
-from fastnet_inference.data import get_fastnet_var_order, AnemoiERA5Dataset, create_dataloader
-from fastnet_inference.output import create_output_store, write_batch
+from fastnet_inference.data import AnemoiERA5IterableDataset, create_dataloader, get_fastnet_var_order
 from fastnet_inference.model import load_model
-
+from fastnet_inference.output import create_output_store, write_batch
 
 logger = logging.getLogger(__name__)
 
@@ -76,7 +76,10 @@ def run_inference(config: InferenceConfig):
         format="%(message)s",
         handlers=[RichHandler(rich_tracebacks=True)],
     )
-
+    # if rank != 0:
+    #     # silence logging from all packages unless they error on rank != 0
+    #     logging.getLogger().setLevel(logging.ERROR)
+    
     logger.info("Running inference with the following settings:")
     logger.info("%r", config)
     model = load_model(version=config.model_version, device=DEVICE)
@@ -88,26 +91,33 @@ def run_inference(config: InferenceConfig):
 
     # data setup
     forecast_vars, nonforecast_vars = get_fastnet_var_order()
-    ds = AnemoiERA5Dataset(
+    ds = AnemoiERA5IterableDataset(
         dataset_path=config.dataset_path,
         forecast_vars=forecast_vars,
         nonforecast_vars=nonforecast_vars,
         start=config.start,
         end=config.end,
         rollout_steps=config.rollout_steps,
+        rank=rank,
+        world_size=world_size,
     )
     # write-out empty zarr store of correct shape
     logger.info("Writing output store to %s", config.output_path)
-    create_output_store(
-        path=config.output_path,
-        init_times=ds.ds.dates[: len(ds)],  # accounts for rollout_steps
-        rollout_steps=config.rollout_steps,
-        variables=forecast_vars,
-        lats=ds.ds.latitudes,
-        lons=ds.ds.longitudes,
-        freq_hours=config.freq_hours,
-    )
-    logger.info("Written output store!")
+
+    if rank == 0:
+        create_output_store(
+            path=config.output_path,
+            init_times=ds.ds.dates[: ds.num_samples],  # accounts for rollout_steps
+            rollout_steps=config.rollout_steps,
+            variables=forecast_vars,
+            lats=ds.ds.latitudes,
+            lons=ds.ds.longitudes,
+            freq_hours=config.freq_hours,
+        )
+        logger.info("Written output store!")
+    
+    # make sure other ranks don't eagerly write to store before it's ready
+    if is_distributed: dist.barrier()
 
     # define post-processing logic
     num_forecast_vars = len(forecast_vars)
@@ -124,27 +134,31 @@ def run_inference(config: InferenceConfig):
         # output dataset has (init_time, lead_time, variable, grid) dim order
         return batch.permute(0, 1, 3, 2)
 
-    # loop through data
-    dl = create_dataloader(
-        ds,
-        batch_size=config.batch_size,
-        num_workers=config.num_workers,
-        pin_memory=True,
+    dl = DataLoader(
+       ds,
+       batch_size=config.batch_size,
+       num_workers=config.num_workers,
+       pin_memory=torch.cuda.is_available(),
     )
-
+    # # loop through data
+    # dl = create_dataloader(
+    #     ds,
+    #     batch_size=config.batch_size,
+    #     num_workers=config.num_workers,
+    # )
     for batch, idxs in track(dl, "Running inference..."):
-        batch_idx = idxs[0] // config.batch_size 
-        # The condition below will only happen after one epoch; leftover batches will start again
-        # from 0, and it won't necessarily be on rank 0. This is default behaviour,
-        # since DDP training needs to all_reduce across all devices when syncing gradients;
-        # the other devices need to process *something*.
-        # We want to skip this wrap-around since we're just doing inference!
-        if batch_idx % world_size != rank:
-            print(f"skipping {batch_idx=}, {rank=}")
-            # another rank is already responsible for this batch
-            continue
+        # batch_idx = idxs[0] // config.batch_size 
+        # # The condition below will only happen after one epoch; leftover batches will start again
+        # # from 0, and it won't necessarily be on rank 0. This is default behaviour,
+        # # since DDP training needs to all_reduce across all devices when syncing gradients;
+        # # the other devices need to process *something*.
+        # # We want to skip this wrap-around since we're just doing inference!
+        # if batch_idx % world_size != rank:
+        #     logger.info("Skipping batch %s on rank %s due to wrap-around", batch_idx, rank)
+        #     # another rank is already responsible for this batch
+        #     continue
         init_time = ds.ds.dates[idxs]
-        logger.info("Rolling out from %s", init_time)
+        logger.info("Rolling out on rank %s from %s", rank, init_time)
         # FastNet expects forecast vars & forcings/constants as separate inputs
         forecast_features, non_forecast_features = (
             batch[..., :num_forecast_vars],
@@ -168,23 +182,29 @@ def run_inference(config: InferenceConfig):
         logger.info(
             "Writing predictions from %s to %s...", init_time, config.output_path
         )
-        write_batch(config.output_path, predictions, idxs)
+        write_batch(config.output_path, predictions, init_time)
     logger.info("Inference complete! Results have been saved to %s", config.output_path)
-    dist.barrier()
-    zarr.consolidate_metadata(config.output_path.with_suffix(".zarr"))
-    if config.zip:
-        import shutil
-        outfile_name = str(config.output_path)
-        shutil.make_archive(outfile_name, "zip", base_dir=config.output_path.with_suffix(".zarr"))
-        logger.info("Since {config.zip=}, results also compressed to %s", outfile_name + ".zip.")
 
-def _plot(predictions: torch.Tensor, ds: AnemoiERA5Dataset) -> None:
-    import matplotlib.pyplot as plt
-    import cartopy.crs as ccrs
+    # wait for all ranks to finish before final saving and consolidation
+    if is_distributed: dist.barrier()
 
-    fig, ax = plt.subplots(subplot_kw={"projection": ccrs.PlateCarree()})
-    p = ax.scatter(x=ds.ds.longitudes, y=ds.ds.latitudes, c=predictions[0, -1, :, 3])
-    ax.coastlines()
-    ax.gridlines(draw_labels=True)
-    plt.colorbar(p, label="K", orientation="horizontal")
-    plt.savefig("test.png")
+    if rank == 0:
+        zarr.consolidate_metadata(config.output_path.with_suffix(".zarr"))
+        if config.zip:
+            import shutil
+            outfile_name = str(config.output_path)
+            shutil.make_archive(outfile_name, "zip", base_dir=config.output_path.with_suffix(".zarr"))
+            logger.info("Since {config.zip=}, results also compressed to %s", outfile_name + ".zip.")
+    if is_distributed:
+        dist.destroy_process_group()
+
+# def _plot(predictions: torch.Tensor, ds: AnemoiERA5Dataset) -> None:
+#     import cartopy.crs as ccrs
+#     import matplotlib.pyplot as plt
+#
+#     fig, ax = plt.subplots(subplot_kw={"projection": ccrs.PlateCarree()})
+#     p = ax.scatter(x=ds.ds.longitudes, y=ds.ds.latitudes, c=predictions[0, -1, :, 3])
+#     ax.coastlines()
+#     ax.gridlines(draw_labels=True)
+#     plt.colorbar(p, label="K", orientation="horizontal")
+#     plt.savefig("test.png")

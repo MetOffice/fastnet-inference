@@ -92,6 +92,6 @@ def synthetic_era5(tmp_path) -> Path:
     return create_synthetic_anemoi_zarr(
         path=tmp_path / "synthetic_era5.zarr",
         variables=variables,
-        n_times=3,
+        n_times=10,  # enough for rollout_steps + batches
         n_gridpoints=40320,  # O96
     )

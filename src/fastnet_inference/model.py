@@ -1,8 +1,8 @@
-import torch
 import logging
 from enum import StrEnum
-from huggingface_hub import hf_hub_download
 
+import torch
+from huggingface_hub import hf_hub_download
 
 HF_ACCOUNT_NAME = "MetOffice"
 logger = logging.getLogger(__name__)
