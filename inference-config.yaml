@@ -1,6 +1,6 @@
 start: "2022-01-01"
-# end: "2022-12-31"
-end: "2022-01-31"
+end: "2022-12-31"
+# end: "2022-01-31"
 batch_size: 32 
 num_workers: 8
 rollout_steps: 40 

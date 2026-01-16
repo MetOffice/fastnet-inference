@@ -76,10 +76,6 @@ def run_inference(config: InferenceConfig):
         format="%(message)s",
         handlers=[RichHandler(rich_tracebacks=True)],
     )
-    # if rank != 0:
-    #     # silence logging from all packages unless they error on rank != 0
-    #     logging.getLogger().setLevel(logging.ERROR)
-    
     logger.info("Running inference with the following settings:")
     logger.info("%r", config)
     model = load_model(version=config.model_version, device=DEVICE)
@@ -140,23 +136,7 @@ def run_inference(config: InferenceConfig):
        num_workers=config.num_workers,
        pin_memory=torch.cuda.is_available(),
     )
-    # # loop through data
-    # dl = create_dataloader(
-    #     ds,
-    #     batch_size=config.batch_size,
-    #     num_workers=config.num_workers,
-    # )
     for batch, idxs in track(dl, "Running inference..."):
-        # batch_idx = idxs[0] // config.batch_size 
-        # # The condition below will only happen after one epoch; leftover batches will start again
-        # # from 0, and it won't necessarily be on rank 0. This is default behaviour,
-        # # since DDP training needs to all_reduce across all devices when syncing gradients;
-        # # the other devices need to process *something*.
-        # # We want to skip this wrap-around since we're just doing inference!
-        # if batch_idx % world_size != rank:
-        #     logger.info("Skipping batch %s on rank %s due to wrap-around", batch_idx, rank)
-        #     # another rank is already responsible for this batch
-        #     continue
         init_time = ds.ds.dates[idxs]
         logger.info("Rolling out on rank %s from %s", rank, init_time)
         # FastNet expects forecast vars & forcings/constants as separate inputs

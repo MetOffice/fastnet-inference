@@ -131,3 +131,76 @@ NONFORECAST_VARS_ORDER_FASTNET = (
     ("sin_local_time", 0),
     ("toa_incident_solar_radiation", 0),
 )
+
+ERA5_VARIABLE_TO_STATS_SHORTHAND = {
+    "10m_u_component_of_wind": "u10",
+    "10m_v_component_of_wind": "v10",
+    "2m_dewpoint_temperature": "2d",
+    "2m_temperature": "t2m",
+    "convective_precipitation": "cp",
+    "cos_latitude": "cos_latitude",
+    "cos_longitude": "cos_longitude",
+    "geopotential": "z",
+    "land_sea_mask": "lsm",
+    "mean_sea_level_pressure": "msl",
+    "potential_vorticity": "pv",
+    "relative_humidity": "r",
+    "sin_latitude": "sin_latitude",
+    "sin_longitude": "sin_longitude",
+    "skin_temperature": "skt",
+    "slope_of_sub_gridscale_orography": "slor",
+    "snow_depth": "sd",
+    "specific_humidity": "q",
+    "standard_deviation_of_orography": "sdor",
+    "surface_pressure": "sp",
+    "temperature": "t",
+    "toa_incident_solar_radiation": "tisr",
+    "total_cloud_cover": "tcc",
+    "total_column_water": "tcw",
+    "total_precipitation": "tp",
+    "u_component_of_wind": "u",
+    "v_component_of_wind": "v",
+    "vertical_velocity": "w",
+    "vorticity": "vo",
+    "sin_local_time": "sin_local_time",
+    "cos_local_time": "cos_local_time",
+    "cos_julian_day": "cos_julian_day",
+    "sin_julian_day": "sin_julian_day",
+    "cos_lat": "cos_latitude",
+    "cos_lon": "cos_longitude",
+    "sin_lat": "sin_latitude",
+    "sin_lon": "sin_longitude",
+    "lsm": "lsm",
+    "sdor": "sdor",
+    "slor": "slor",
+    "orography": "orography",
+}
+
+
+def get_anemoi_to_stats_mapping() -> dict[str, str]:
+    """Build mapping from anemoi shorthand names to stats file names.
+
+    Examples:
+        mapping["10u"] -> "u10"
+        mapping["z_500"] -> "z500"
+        mapping["cos_julian_day"] -> "cos_julian_day"
+    """
+    mapping = {}
+
+    for var, level in FORECAST_VARS_ORDER_FASTNET:
+        anemoi_name = LONGHAND_VARIABLE_TO_ANEMOI_ERA5_SHORTHAND[var]
+        stats_name = ERA5_VARIABLE_TO_STATS_SHORTHAND[var]
+        if level != 0:
+            anemoi_name += f"_{level}"  # e.g. z_500
+            stats_name += str(level)     # e.g. z500
+        mapping[anemoi_name] = stats_name
+
+    for var, level in NONFORECAST_VARS_ORDER_FASTNET:
+        anemoi_name = LONGHAND_VARIABLE_TO_ANEMOI_ERA5_SHORTHAND[var]
+        stats_name = ERA5_VARIABLE_TO_STATS_SHORTHAND[var]
+        if level != 0:
+            anemoi_name += f"_{level}"
+            stats_name += str(level)
+        mapping[anemoi_name] = stats_name
+
+    return mapping

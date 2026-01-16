@@ -7,6 +7,8 @@ Improving this would be desirable in a high-throughput scenario.
 """
 
 import numpy as np
+import json
+import importlib
 import torch
 from anemoi.datasets import open_dataset
 from torch import distributed as dist
@@ -55,9 +57,12 @@ class AnemoiERA5Dataset(Dataset):
             msg = "Time periods in specified time range are not contiguous!"
             raise ValueError(msg)
         self.rollout_steps = rollout_steps
-        # TODO: load in downloaded stats
-        self.mean = self.ds.statistics["mean"]
-        self.std = self.ds.statistics["stdev"]
+        # import our own stats
+        base_path = importlib.resources.files("fastnet_inference")
+        with (base_path / "stats.json").open() as f:
+            stats = json.load(f)
+        self.mean = np.array(list(stats["mean"].values()))
+        self.std = np.array(list(stats["stdev"].values()))
         # calculate actual number of data points based on rollout window
         ds_size = len(self.ds)
         if ds_size <= self.rollout_steps:
@@ -101,8 +106,12 @@ class AnemoiERA5IterableDataset(IterableDataset):
             msg = "Time periods in specified time range are not contiguous!"
             raise ValueError(msg)
         self.rollout_steps = rollout_steps
-        self.mean = self.ds.statistics["mean"]
-        self.std = self.ds.statistics["stdev"]
+        # import our own stats
+        base_path = importlib.resources.files("fastnet_inference")
+        with (base_path / "stats.json").open() as f:
+            stats = json.load(f)
+        self.mean = np.array(list(stats["mean"].values()))
+        self.std = np.array(list(stats["stdev"].values()))
         # calculate actual number of data points based on rollout window
         ds_size = len(self.ds)
         if ds_size <= self.rollout_steps:
