@@ -5,7 +5,14 @@ code: ../../..
 
 command: >-
   cd fastnet-inference &&
-  uv run fastnet-inference inference-config.yaml
+  set -x &&
+  uv run torchrun
+  --nproc_per_node=8
+  --nnodes=1
+  --node_rank "$RANK"
+  --master_addr "$MASTER_ADDR"
+  --master_port "$MASTER_PORT"
+  -m fastnet_inference inference-config.yaml
   --dataset-path=${{inputs.data_folder}}/${{inputs.data_path}}  # should be full zarr w/ orography
 
 # relative to the anemoi/fastnet-current/ folder
@@ -25,8 +32,8 @@ compute: "AI4NWP-Readiness-A100"
 
 resources:
   instance_count: 1
-  shm_size: 200G
+  shm_size: 800G
 
 distribution:
   type: pytorch
-  process_count_per_instance: 1
+  process_count_per_instance: 8

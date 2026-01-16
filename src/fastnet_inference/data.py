@@ -55,6 +55,7 @@ class AnemoiERA5Dataset(Dataset):
             msg = "Time periods in specified time range are not contiguous!"
             raise ValueError(msg)
         self.rollout_steps = rollout_steps
+        # TODO: load in downloaded stats
         self.mean = self.ds.statistics["mean"]
         self.std = self.ds.statistics["stdev"]
         # calculate actual number of data points based on rollout window
