@@ -6,9 +6,7 @@ from pathlib import Path
 import torch
 import zarr
 from rich.logging import RichHandler
-from rich.progress import track
 from torch import distributed as dist
-from torch.utils.data import DataLoader
 
 from fastnet_inference.data import AnemoiERA5Dataset, create_dataloader, get_fastnet_var_order
 from fastnet_inference.model import load_model
@@ -62,7 +60,9 @@ def _rollout_loop(
     logger.info("_rollout_loop: starting %d rollout steps on %r", rollout_steps, device)
     # roll out model
     for t in range(rollout_steps):
-        logger.info("_rollout_loop [%s]: step %d/%d - calling model...", device, t + 1, rollout_steps)
+        logger.info(
+            "_rollout_loop [%s]: step %d/%d - calling model...", device, t + 1, rollout_steps
+        )
         # supply the non-forecast vars according to rollout timestep
         # (we keep the rollout dim in non_forecast_features due to a for-loop inside the model)
         current_state = model(
@@ -90,6 +90,7 @@ def run_inference(config: InferenceConfig):
     # handle distributed
     if is_distributed:
         from datetime import timedelta
+
         backend = "gloo" if DEVICE == "cpu" else "nccl"
         timeout = timedelta(hours=1)
         if backend == "gloo":
@@ -123,9 +124,10 @@ def run_inference(config: InferenceConfig):
             freq_hours=config.freq_hours,
         )
         logger.info("Written output store!")
-    
+
     # make sure other ranks don't eagerly write to store before it's ready
-    if is_distributed: dist.barrier()
+    if is_distributed:
+        dist.barrier()
 
     # define post-processing logic
     num_forecast_vars = len(forecast_vars)
@@ -143,11 +145,11 @@ def run_inference(config: InferenceConfig):
         return batch.permute(0, 1, 3, 2)
 
     dl = create_dataloader(
-       ds,
-       batch_size=config.batch_size,
-       num_workers=config.num_workers,
-       prefetch_factor=2 if config.num_workers > 0 else None,  # explicit prefetch
-       persistent_workers=config.num_workers > 0,  # keep workers alive between batches
+        ds,
+        batch_size=config.batch_size,
+        num_workers=config.num_workers,
+        prefetch_factor=2 if config.num_workers > 0 else None,  # explicit prefetch
+        persistent_workers=config.num_workers > 0,  # keep workers alive between batches
     )
     dl_iter = iter(dl)
     batch_num = 0
@@ -182,14 +184,13 @@ def run_inference(config: InferenceConfig):
             "Rank %r writing predictions from %r to %r...", rank, init_time, config.output_path
         )
         write_batch(config.output_path, predictions, init_time)
-        logger.info(
-            "Rank %r wrote batch %r (idxs=%r) to file.", rank, batch_num, idxs
-        )
+        logger.info("Rank %r wrote batch %r (idxs=%r) to file.", rank, batch_num, idxs)
         batch_num += 1
 
     logger.info("Rank %r finished inference - waiting for other ranks...", rank)
     # wait for all ranks to finish before final saving and consolidation
-    if is_distributed: dist.barrier()
+    if is_distributed:
+        dist.barrier()
 
     logger.info("Inference complete! Results have been saved to %r", config.output_path)
 
@@ -203,6 +204,7 @@ def run_inference(config: InferenceConfig):
         #     logger.info("Since config.zip=%s, results also compressed to %s", config.zip, outfile_name + ".zip.")
     if is_distributed:
         dist.destroy_process_group()
+
 
 # def _plot(predictions: torch.Tensor, ds: AnemoiERA5Dataset) -> None:
 #     import cartopy.crs as ccrs

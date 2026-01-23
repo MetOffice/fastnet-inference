@@ -1,9 +1,10 @@
 # Sampler code is from the Ultralytics repo under AGPL-3.0 License - https://ultralytics.com/license
 import math
+from collections.abc import Iterator
+
 import torch
 import torch.distributed as dist
 from torch.utils.data import Dataset
-from collections.abc import Iterator
 
 
 class ContiguousDistributedSampler(torch.utils.data.Sampler):

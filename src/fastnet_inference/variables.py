@@ -192,7 +192,7 @@ def get_anemoi_to_stats_mapping() -> dict[str, str]:
         stats_name = ERA5_VARIABLE_TO_STATS_SHORTHAND[var]
         if level != 0:
             anemoi_name += f"_{level}"  # e.g. z_500
-            stats_name += str(level)     # e.g. z500
+            stats_name += str(level)  # e.g. z500
         mapping[anemoi_name] = stats_name
 
     for var, level in NONFORECAST_VARS_ORDER_FASTNET:

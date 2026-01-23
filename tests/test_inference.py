@@ -1,5 +1,4 @@
-from pathlib import Path
-from fastnet_inference import run_inference, InferenceConfig
+from fastnet_inference import InferenceConfig, run_inference
 
 
 def test_run_inference(synthetic_era5, tmp_path):

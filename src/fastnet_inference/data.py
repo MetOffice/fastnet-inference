@@ -6,21 +6,21 @@ Improving this would be desirable in a high-throughput scenario.
 (e.g. loading chunks of data and accessing those multiple times in an IterableDataset).
 """
 
-import numpy as np
-import json
 import importlib
+import json
+
+import numpy as np
 import torch
 from anemoi.datasets import open_dataset
 from torch import distributed as dist
-from torch.utils.data import DataLoader, Dataset, IterableDataset, get_worker_info
-from torch.utils.data.distributed import DistributedSampler
+from torch.utils.data import DataLoader, Dataset
 
+from fastnet_inference.sampler import ContiguousDistributedSampler
 from fastnet_inference.variables import (
     FORECAST_VARS_ORDER_FASTNET,
     LONGHAND_VARIABLE_TO_ANEMOI_ERA5_SHORTHAND,
     NONFORECAST_VARS_ORDER_FASTNET,
 )
-from fastnet_inference.sampler import ContiguousDistributedSampler
 
 
 def get_fastnet_var_order() -> tuple[list[str], list[str]]:
@@ -89,7 +89,7 @@ class AnemoiERA5Dataset(Dataset):
         self.num_samples = len(self.ds) - self.rollout_steps
 
     def __len__(self) -> int:
-        return self.num_samples 
+        return self.num_samples
 
     def __getitem__(self, idx: int) -> tuple[torch.Tensor, int]:
         batch = self.ds[idx : idx + self.rollout_steps + 1]
@@ -122,4 +122,3 @@ def create_dataloader(dataset: Dataset, batch_size: int, num_workers: int, **kwa
         sampler=sampler,
         **kwargs,
     )
-

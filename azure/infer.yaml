@@ -1,5 +1,5 @@
 $schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
-experiment_name: fastnet-inference 
+experiment_name: fastnet-inference
 
 code: ../../..
 

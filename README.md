@@ -8,7 +8,7 @@ Inference routines for the FastNet AI model for global weather prediction.
 ## Installation
 
 ```bash
-uv sync 
+uv sync
 ```
 
 ## Usage
