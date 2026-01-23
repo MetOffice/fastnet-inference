@@ -1,7 +1,8 @@
+from pathlib import Path
+
 import numpy as np
 import pytest
 import zarr
-from pathlib import Path
 
 
 def create_synthetic_anemoi_zarr(
@@ -29,9 +30,7 @@ def create_synthetic_anemoi_zarr(
 
     # Dates and coordinates
     start = np.datetime64("2020-01-01T00:00:00")
-    dates = np.array(
-        [start + np.timedelta64(i * freq_hours, "h") for i in range(n_times)]
-    )
+    dates = np.array([start + np.timedelta64(i * freq_hours, "h") for i in range(n_times)])
     lats = rng.uniform(-90, 90, n_gridpoints)
     lons = rng.uniform(-180, 180, n_gridpoints)
 
@@ -61,16 +60,14 @@ def create_synthetic_anemoi_zarr(
     root.create_dataset("has_nans", data=has_nans)
 
     # Required attributes
-    root.attrs.update(
-        {
-            "version": "0.30",
-            "frequency": f"{freq_hours}h",
-            "variables": variables,
-            "ensemble_dimension": 1,
-            "field_shape": [n_gridpoints],
-            "flatten_grid": True,
-        }
-    )
+    root.attrs.update({
+        "version": "0.30",
+        "frequency": f"{freq_hours}h",
+        "variables": variables,
+        "ensemble_dimension": 1,
+        "field_shape": [n_gridpoints],
+        "flatten_grid": True,
+    })
 
     # Array dimension attributes (required by anemoi-datasets)
     root["data"].attrs["_ARRAY_DIMENSIONS"] = ["time", "variable", "ensemble", "cell"]
@@ -92,6 +89,6 @@ def synthetic_era5(tmp_path) -> Path:
     return create_synthetic_anemoi_zarr(
         path=tmp_path / "synthetic_era5.zarr",
         variables=variables,
-        n_times=3,
+        n_times=10,  # enough for rollout_steps + batches
         n_gridpoints=40320,  # O96
     )

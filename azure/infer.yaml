@@ -1,0 +1,41 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+experiment_name: fastnet-inference
+
+code: ../../..
+
+command: >-
+  cd fastnet-inference &&
+  set -x &&
+  uv run torchrun
+  --standalone
+  --nproc_per_node=8
+  -m fastnet_inference inference-config.yaml
+  --dataset-path=${{inputs.data_folder}}/${{inputs.data_path}}  # should be full zarr w/ orography
+
+# relative to the anemoi/fastnet-current/ folder
+inputs:
+  data_folder:
+    type: uri_folder
+    path: azureml:2022-era5-orography:2
+  data_path: "era5-full.zarr"
+
+environment_variables:
+  HF_TOKEN: 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
+  # Distributed timeouts - 2 hours (7200 seconds / 7200000 ms)
+  NCCL_TIMEOUT: "7200"
+  TORCH_NCCL_BLOCKING_WAIT: "0"
+  TORCH_DIST_INIT_BARRIER_TIMEOUT: "7200"
+  TORCHELASTIC_STORE_TIMEOUT: "7200000"  # milliseconds for the TCPStore
+
+environment:
+  image: ghcr.io/astral-sh/uv:python3.12-bookworm
+
+compute: "AI4NWP-Readiness-A100"
+
+resources:
+  instance_count: 1
+  shm_size: 800G
+
+distribution:
+  type: pytorch
+  process_count_per_instance: 1  # Let torchrun handle spawning 8 GPU processes

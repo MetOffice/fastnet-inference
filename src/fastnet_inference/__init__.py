@@ -1,6 +1,6 @@
-from fastnet_inference.eval import run_inference, InferenceConfig
+from fastnet_inference.eval import InferenceConfig, run_inference
 
 __all__ = (
-    "run_inference",
     "InferenceConfig",
+    "run_inference",
 )

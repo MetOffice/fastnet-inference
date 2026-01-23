@@ -1,0 +1,2661 @@
+{
+    "metadata": {
+        ".zattrs": {},
+        ".zgroup": {
+            "zarr_format": 2
+        },
+        "2d_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "2d_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "2d_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "2d_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "cos_julian_day_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "cos_julian_day_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "cos_julian_day_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "cos_julian_day_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "cos_latitude_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "cos_latitude_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "cos_latitude_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "cos_latitude_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "cos_local_time_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "cos_local_time_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "cos_local_time_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "cos_local_time_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "cos_longitude_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "cos_longitude_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "cos_longitude_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "cos_longitude_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "cp_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "cp_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "cp_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "cp_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "lsm_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "lsm_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "lsm_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "lsm_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "msl_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "msl_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "msl_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "msl_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "orography_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "orography_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "orography_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "orography_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "q1000_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "q1000_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "q1000_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "q1000_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "q100_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "q100_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "q100_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "q100_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "q150_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "q150_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "q150_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "q150_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "q200_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "q200_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "q200_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "q200_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "q250_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "q250_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "q250_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "q250_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "q300_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "q300_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "q300_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "q300_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "q400_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "q400_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "q400_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "q400_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "q500_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "q500_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "q500_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "q500_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "q50_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "q50_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "q50_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "q50_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "q600_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "q600_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "q600_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "q600_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "q700_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "q700_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "q700_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "q700_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "q850_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "q850_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "q850_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "q850_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "q925_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "q925_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "q925_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "q925_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "sd_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "sd_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "sd_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "sd_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "sdor_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "sdor_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "sdor_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "sdor_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "sin_julian_day_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "sin_julian_day_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "sin_julian_day_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "sin_julian_day_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "sin_latitude_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "sin_latitude_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "sin_latitude_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "sin_latitude_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "sin_local_time_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "sin_local_time_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "sin_local_time_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "sin_local_time_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "sin_longitude_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "sin_longitude_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "sin_longitude_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "sin_longitude_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "skt_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "skt_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "skt_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "skt_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "slor_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "slor_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "slor_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "slor_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "sp_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "sp_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "sp_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "sp_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "t1000_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "t1000_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "t1000_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "t1000_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "t100_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "t100_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "t100_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "t100_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "t150_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "t150_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "t150_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "t150_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "t200_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "t200_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "t200_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "t200_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "t250_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "t250_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "t250_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "t250_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "t2m_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "t2m_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "t2m_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "t2m_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "t300_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "t300_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "t300_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "t300_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "t400_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "t400_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "t400_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "t400_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "t500_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "t500_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "t500_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "t500_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "t50_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "t50_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "t50_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "t50_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "t600_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "t600_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "t600_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "t600_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "t700_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "t700_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "t700_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "t700_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "t850_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "t850_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "t850_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "t850_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "t925_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "t925_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "t925_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "t925_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "tcw_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "tcw_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "tcw_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "tcw_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "tisr_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "tisr_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "tisr_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "tisr_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "tp_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "tp_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "tp_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "tp_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "u1000_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "u1000_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "u1000_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "u1000_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "u100_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "u100_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "u100_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "u100_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "u10_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "u10_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "u10_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "u10_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "u150_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "u150_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "u150_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "u150_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "u200_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "u200_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "u200_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "u200_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "u250_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "u250_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "u250_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "u250_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "u300_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "u300_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "u300_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "u300_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "u400_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "u400_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "u400_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "u400_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "u500_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "u500_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "u500_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "u500_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "u50_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "u50_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "u50_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "u50_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "u600_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "u600_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "u600_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "u600_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "u700_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "u700_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "u700_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "u700_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "u850_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "u850_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "u850_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "u850_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "u925_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "u925_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "u925_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "u925_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "v1000_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "v1000_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "v1000_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "v1000_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "v100_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "v100_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "v100_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "v100_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "v10_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "v10_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "v10_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "v10_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "v150_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "v150_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "v150_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "v150_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "v200_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "v200_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "v200_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "v200_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "v250_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "v250_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "v250_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "v250_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "v300_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "v300_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "v300_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "v300_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "v400_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "v400_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "v400_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "v400_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "v500_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "v500_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "v500_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "v500_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "v50_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "v50_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "v50_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "v50_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "v600_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "v600_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "v600_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "v600_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "v700_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "v700_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "v700_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "v700_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "v850_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "v850_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "v850_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "v850_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "v925_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "v925_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "v925_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "v925_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "w1000_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "w1000_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "w1000_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "w1000_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "w100_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "w100_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "w100_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "w100_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "w150_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "w150_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "w150_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "w150_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "w200_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "w200_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "w200_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "w200_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "w250_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "w250_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "w250_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "w250_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "w300_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "w300_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "w300_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "w300_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "w400_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "w400_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "w400_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "w400_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "w500_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "w500_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "w500_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "w500_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "w50_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "w50_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "w50_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "w50_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "w600_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "w600_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "w600_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "w600_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "w700_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "w700_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "w700_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "w700_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "w850_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "w850_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "w850_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "w850_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "w925_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "w925_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "w925_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "w925_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "z1000_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "z1000_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "z1000_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "z1000_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "z100_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "z100_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "z100_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "z100_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "z150_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "z150_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "z150_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "z150_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "z200_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "z200_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "z200_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "z200_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "z250_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "z250_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "z250_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "z250_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "z300_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "z300_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "z300_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "z300_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "z400_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "z400_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "z400_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "z400_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "z500_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "z500_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "z500_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "z500_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "z50_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "z50_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "z50_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "z50_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "z600_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "z600_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "z600_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "z600_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "z700_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "z700_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "z700_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "z700_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "z850_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "z850_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "z850_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "z850_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "z925_avg/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "z925_avg/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "z925_std/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "z925_std/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        }
+    },
+    "zarr_consolidated_format": 1
+}

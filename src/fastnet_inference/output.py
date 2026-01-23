@@ -8,10 +8,10 @@ References:
 - Zarr region writes: https://docs.xarray.dev/en/stable/user-guide/io.html
 """
 
+from pathlib import Path
+
 import numpy as np
 import xarray as xr
-from pathlib import Path
-from collections.abc import Sequence
 
 
 def create_output_store(
@@ -73,7 +73,7 @@ def create_output_store(
 def write_batch(
     path: Path,
     forecasts: np.ndarray,
-    idxs: Sequence[int],
+    init_times: np.ndarray,
 ) -> None:
     """
     Write a batch of forecasts to pre-allocated store.
@@ -81,23 +81,15 @@ def write_batch(
     Args:
         path: Path to zarr store
         forecasts: (batch, rollout_steps, variable, gridpoints) array
-        idxs: Init_time indices for this batch (list, array, or tensor)
+        init_times: Init time coordinates for this batch
     """
-    # minimal dataset for region write - coords not needed
+    # ensure init_times is cast to an array if scalar
+    init_times = np.atleast_1d(init_times)
     ds = xr.Dataset(
-        {"forecast": (["init_time", "lead_time", "variable", "grid"], forecasts)}
+        {"forecast": (["init_time", "lead_time", "variable", "grid"], forecasts)},
+        coords={"init_time": init_times},
     )
 
-    # region write is safe for concurrent access when init_times are unique
-    start_idx = idxs[0]
-    end_idx = idxs[-1] + 1  # slice end is exclusive
-    ds.to_zarr(
-        path,
-        mode="r+",
-        region={
-            "init_time": slice(start_idx, end_idx),
-            "lead_time": slice(None),
-            "variable": slice(None),
-            "grid": slice(None),
-        },
-    )
+    # region="auto" matches init_time coords against store to determine write region
+    # safe for concurrent access when init_times are unique across ranks
+    ds.to_zarr(path, mode="r+", region="auto")

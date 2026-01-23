@@ -6,15 +6,20 @@ Improving this would be desirable in a high-throughput scenario.
 (e.g. loading chunks of data and accessing those multiple times in an IterableDataset).
 """
 
+import importlib
+import json
+
 import numpy as np
 import torch
-from torch.utils.data import Dataset
 from anemoi.datasets import open_dataset
+from torch import distributed as dist
+from torch.utils.data import DataLoader, Dataset
 
+from fastnet_inference.sampler import ContiguousDistributedSampler
 from fastnet_inference.variables import (
     FORECAST_VARS_ORDER_FASTNET,
-    NONFORECAST_VARS_ORDER_FASTNET,
     LONGHAND_VARIABLE_TO_ANEMOI_ERA5_SHORTHAND,
+    NONFORECAST_VARS_ORDER_FASTNET,
 )
 
 
@@ -45,6 +50,22 @@ class AnemoiERA5Dataset(Dataset):
         end: str | None = None,
         rollout_steps: int = 0,
     ) -> None:
+        """
+        Parameters
+        ----------
+        dataset_path : str
+            Path to the Anemoi dataset (local or remote).
+        forecast_vars : list[str]
+            List of forecast variable names to load (predicted by the model).
+        nonforecast_vars : list[str]
+            List of non-forecast variable names (forcings/constants).
+        start : str | None
+            Start date for data selection (ISO format). None for dataset start.
+        end : str | None
+            End date for data selection (ISO format). None for dataset end.
+        rollout_steps : int
+            Number of autoregressive steps to roll out. Determines window size.
+        """
         # will load data with feature dim order of:
         # forecast features, then nonforecast features
         ordered_vars = [*forecast_vars, *nonforecast_vars]
@@ -53,13 +74,18 @@ class AnemoiERA5Dataset(Dataset):
             msg = "Time periods in specified time range are not contiguous!"
             raise ValueError(msg)
         self.rollout_steps = rollout_steps
-        self.mean = self.ds.statistics["mean"]
-        self.std = self.ds.statistics["stdev"]
+        # import our own stats
+        base_path = importlib.resources.files("fastnet_inference")
+        with (base_path / "stats.json").open() as f:
+            stats = json.load(f)
+        self.mean = np.array(list(stats["mean"].values()))
+        self.std = np.array(list(stats["stdev"].values()))
         # calculate actual number of data points based on rollout window
         ds_size = len(self.ds)
         if ds_size <= self.rollout_steps:
             msg = f"Dataset only has {ds_size} entries - impossible to roll out to {rollout_steps} lead times!"
             raise ValueError(msg)
+        # last init time is self.rollout_steps away from end
         self.num_samples = len(self.ds) - self.rollout_steps
 
     def __len__(self) -> int:
@@ -75,3 +101,24 @@ class AnemoiERA5Dataset(Dataset):
         # normalize by stats (anemoi-datasets yaml recipe controls window for stats calc)
         normalized = ((batch - self.mean) / self.std).float()
         return normalized, idx
+
+
+def create_dataloader(dataset: Dataset, batch_size: int, num_workers: int, **kwargs) -> DataLoader:
+    """Check to see if we're in a distributed / GPU context, and init accordingly."""
+    sampler = None
+    # check dist context
+    if dist.is_available() and dist.is_initialized():
+        sampler = ContiguousDistributedSampler(
+            dataset,
+            rank=dist.get_rank(),
+            num_replicas=dist.get_world_size(),
+            shuffle=False,
+        )
+    return DataLoader(
+        dataset,
+        batch_size=batch_size,
+        num_workers=num_workers,
+        pin_memory=torch.cuda.is_available(),
+        sampler=sampler,
+        **kwargs,
+    )
