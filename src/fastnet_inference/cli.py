@@ -56,4 +56,4 @@ def run_pipeline(
     print(dataset_path)
     print(config)
     run_inference(config)
-    inspect_output(config.output_path)
+    # inspect_output(config.output_path)

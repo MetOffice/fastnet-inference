@@ -13,7 +13,7 @@ class ModelFilename(StrEnum):
     gpu = "model_file"
 
 
-def load_model(version: float = 1.1, device: str = "cpu") -> torch.nn.Module:
+def load_model(version: float = 1.1, device: str | torch.device = "cpu") -> torch.nn.Module:
     # TODO: think about non-torchscript checkpoint
     if device.lower() == "cpu":
         model_filename = ModelFilename.cpu

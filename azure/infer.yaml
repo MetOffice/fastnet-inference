@@ -7,11 +7,8 @@ command: >-
   cd fastnet-inference &&
   set -x &&
   uv run torchrun
+  --standalone
   --nproc_per_node=8
-  --nnodes=1
-  --node_rank "$RANK"
-  --master_addr "$MASTER_ADDR"
-  --master_port "$MASTER_PORT"
   -m fastnet_inference inference-config.yaml
   --dataset-path=${{inputs.data_folder}}/${{inputs.data_path}}  # should be full zarr w/ orography
 
@@ -24,6 +21,11 @@ inputs:
 
 environment_variables:
   HF_TOKEN: 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
+  # Distributed timeouts - 2 hours (7200 seconds / 7200000 ms)
+  NCCL_TIMEOUT: "7200"
+  TORCH_NCCL_BLOCKING_WAIT: "0"
+  TORCH_DIST_INIT_BARRIER_TIMEOUT: "7200"
+  TORCHELASTIC_STORE_TIMEOUT: "7200000"  # milliseconds for the TCPStore
 
 environment:
   image: ghcr.io/astral-sh/uv:python3.12-bookworm
@@ -36,4 +38,4 @@ resources:
 
 distribution:
   type: pytorch
-  process_count_per_instance: 8
+  process_count_per_instance: 1  # Let torchrun handle spawning 8 GPU processes
