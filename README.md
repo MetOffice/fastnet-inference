@@ -1,9 +1,20 @@
 # FastNet Inference
 
-Inference routines for the FastNet AI model for global weather prediction.
+This repository provides the end-to-end inference pipeline for the FastNet AI weather model as used in the corresponding research paper [FastNet: Improving the physical consistency of machine-learning weather prediction models through loss function design](doi).
+
+> [!NOTE]
+> **Hugging Face authentication is required** to run inference. The model weights are hosted on Hugging Face. Before running the pipeline, set your token: `export HF_TOKEN=your_token_here`. Get a token from [huggingface.co/settings/tokens](https://huggingface.co/settings/tokens).
+
+- Downloads and loads a TorchScript checkpoint from [Hugging Face FastNet release](https://huggingface.co/MetOffice/FastNet-v1.1)
+- Fetches data using anemoi
+- Preprocesses data, including normalisation statistics computed over the full training period (1980-2020)
+- Runs autoregressive rollout forecasts
+- Handles output postprocessing and management
+- Optional distributed execution support
 
 > [!IMPORTANT]
 > This repo is designed to perform inference on O96 gridded data. Finer grids are not easily accessible; we may release a checkpoint to run FastNet on N320 data in future.
+
 
 ## Installation
 
@@ -18,7 +29,7 @@ uv sync
 Generate an [anemoi-datasets](https://anemoi-datasets.readthedocs.io/) compatible O96 ERA5 dataset using the provided recipe:
 
 ```bash
-anemoi-datasets create era5-subset.yaml era5-subset.zarr
+uv run anemoi-datasets create era5-subset.yaml era5-subset.zarr
 ```
 
 The recipe (`era5-subset.yaml`) pulls from ECMWF's public ERA5 dataset and subsets to your desired date range:
@@ -70,7 +81,7 @@ zip: True
 ### 3. Run inference
 
 ```bash
-uv run fastnet-inference run-pipeline inference-config.yaml --dataset-path era5-subset.zarr
+uv run fastnet-inference --dataset-path era5-subset.zarr inference-config.yaml
 ```
 
 ### Distributed (multi-GPU)
