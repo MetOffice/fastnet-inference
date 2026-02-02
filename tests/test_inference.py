@@ -1,6 +1,9 @@
+import pytest
+
 from fastnet_inference import InferenceConfig, run_inference
 
 
+@pytest.mark.requires_hf
 def test_run_inference(synthetic_era5, tmp_path):
     config = InferenceConfig(
         dataset_path=str(synthetic_era5),
@@ -13,6 +16,7 @@ def test_run_inference(synthetic_era5, tmp_path):
     run_inference(config)
 
 
+@pytest.mark.requires_hf
 def test_run_inference_multi_worker(synthetic_era5, tmp_path):
     config = InferenceConfig(
         dataset_path=str(synthetic_era5),

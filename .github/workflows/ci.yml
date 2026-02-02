@@ -51,8 +51,8 @@ jobs:
       - name: Remove lockfile for library testing
         run: rm uv.lock
 
-      - name: Run tests
-        run: uv run --all-extras pytest tests
+      - name: Run tests (excluding HF-dependent integration tests)
+        run: uv run --all-extras pytest tests -m "not requires_hf"
 
   tests-locked:
     runs-on: ubuntu-latest
@@ -68,5 +68,24 @@ jobs:
         with:
           version: "latest"
 
-      - name: Run tests using lockfile
-        run: uv run --locked --all-extras pytest tests
+      - name: Run tests using lockfile (excluding HF-dependent integration tests)
+        run: uv run --locked --all-extras pytest tests -m "not requires_hf"
+
+  hf-integration:
+    runs-on: ubuntu-latest
+    # Disabled while the model repo is private (no HF_TOKEN in CI). Once the HF repo is public:
+    # TODO: remove the line below so this job runs on every CI; HF_TOKEN will not be needed.
+    if: false
+    steps:
+      - name: Checkout this repo
+        uses: actions/checkout@v5
+
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "latest"
+
+      - name: Run Hugging Face integration tests
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: uv run --locked --all-extras pytest tests -m "requires_hf"
