@@ -8,7 +8,7 @@ FastNet produces highly skilled forecasts that overcome commonly known limitatio
 
 ### Model Description
 
-FastNet has an encode-process-decode structure with a series of graph neural networks and auto-regressive rollout. The encoder is a directional bipartite graph linking the current atmospheric state defined on input grid cells to a lower resolution latent space defined on mesh nodes. The processor then advances the mesh state in time by six hour increments. The processor operates on a multi-scale icosahedral mesh, starting from the 12-node icosahedron and subdividing six times, enabling the model to capture both localised and long-range interactions. Finally, the decoder maps the latent mesh representation back to the output domain, and the prediction is fed back as input for subsequent steps during rollout. FastNet uses a residual formulation, where the decoder output represents the increment to be added to the input state via skip-level connections, rather than predicting the full field from scratch. Notably, FastNet was trained with loss-function adaptations designed to improve physical realism compared to similar models. 
+FastNet has an encode-process-decode structure with a series of graph neural networks and auto-regressive rollout. The encoder is a directional bipartite graph linking the current atmospheric state defined on input grid cells to a lower resolution latent space defined on mesh nodes. The processor then advances the mesh state in time by six hour increments. The processor operates on a multi-scale icosahedral mesh, starting from the 12-node icosahedron and subdividing six times, enabling the model to capture both localised and long-range interactions. Finally, the decoder maps the latent mesh representation back to the output domain, and the prediction is fed back as input for subsequent steps during rollout. FastNet uses a residual formulation, where the decoder output represents the increment to be added to the input state via skip-level connections, rather than predicting the full field from scratch. Notably, FastNet was trained with loss-function adaptations designed to improve physical realism compared to similar models.
 
 - **Developed by:** Met Office & The Alan Turing Institute
 - **Model type:** Encoder-processor-decoder model
@@ -24,7 +24,7 @@ FastNet has an encode-process-decode structure with a series of graph neural net
 ### Direct Use
 This model is intended for research and exploratory inference on historical or real-time atmospheric reanalysis inputs to produce global weather pattern predictions over a time horizon of up to ~2 days.
 It is released for inference only: weights are provided for forward prediction, but training and fine-tuning are not supported in this release.
-    
+
 Typical direct uses include: benchmarking against baselines, sensitivity experiments (e.g., perturbing input fields), case-study analysis of notable events
 
 ### Out of scope
@@ -36,7 +36,7 @@ This release is not intended for operational forecasting, safety-critical decisi
 
 ### Training Data
 FastNet is trained on the Copernicus ERA5 reanalysis dataset produced by ECMWF. This dataset is also available via [anemoi](https://anemoi.readthedocs.io/projects/training/en/latest/user-guide/download-era5-o96.html)
-We use data re-gridded to an O96 (~ grid spacing of 104km) reduced Gaussian grid from 13 pressure levels taken at 6 hour time snapshots. 
+We use data re-gridded to an O96 (~ grid spacing of 104km) reduced Gaussian grid from 13 pressure levels taken at 6 hour time snapshots.
 
 The full list of input and output fields is shown below:
 
@@ -78,9 +78,9 @@ Training data from each pressure level (including surface-level variables) are s
 
 ## Evaluation
 
-FastNet is evaluated against ERA5 data using the WeatherBench 2 software package analysis for 2022. We compute the full rollout for all forecast valid times in 2022, re-gridding the output to a 1.5 degree latitude-longitude grid using a conservative re-gridding scheme. 
+FastNet is evaluated against ERA5 data using the WeatherBench 2 software package analysis for 2022. We compute the full rollout for all forecast valid times in 2022, re-gridding the output to a 1.5 degree latitude-longitude grid using a conservative re-gridding scheme.
 
-We also evaluate against the Met Office Global Model operational 
+We also evaluate against the Met Office Global Model operational
 
 ## Technical Specifications
 
@@ -91,4 +91,3 @@ Experiments were run on Microsoft Azure using `<GPU/CPU info>`
 ### Software
 
 Code was implemented in Python using `<framework>` and executed on Azure; dependencies include `<key libs>` (see `requirements.txt` / `environment.yml`).
-
