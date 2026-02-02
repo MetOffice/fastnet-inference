@@ -25,6 +25,9 @@ build-backend = "uv_build"
 testpaths = ["tests"]
 addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config"]
 xfail_strict = true
+markers = [
+    "requires_hf: marks tests that need Hugging Face access (download model); skip in default CI, run in HF integration job with HF_TOKEN.",
+]
 
 [dependency-groups]
 dev = [
