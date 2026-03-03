@@ -5,7 +5,7 @@ This repository provides the end-to-end inference pipeline for the FastNet AI we
 > [!NOTE]
 > **Hugging Face authentication is required** to run inference. The model weights are hosted on Hugging Face. Before running the pipeline, set your token: `export HF_TOKEN=your_token_here`. Get a token from [huggingface.co/settings/tokens](https://huggingface.co/settings/tokens).
 
-- Downloads and loads a TorchScript checkpoint from [Hugging Face FastNet release](https://huggingface.co/MetOffice/FastNet-v1.1)
+- Downloads and loads a TorchScript checkpoint from [Hugging Face FastNet release](https://huggingface.co/MetOffice/FastNet-global)
 - Fetches data using anemoi
 - Preprocesses data, including normalisation statistics computed over the full training period (1980-2020)
 - Runs autoregressive rollout forecasts
@@ -65,6 +65,7 @@ num_workers: 8
 rollout_steps: 40
 output_path: "outputs/forecasts.zarr"
 freq_hours: 6
+model_repo: "MetOffice/FastNet-global"
 zip: True
 ```
 
@@ -76,6 +77,7 @@ zip: True
 | `rollout_steps` | Forecast lead times (in multiples of `freq_hours`) |
 | `output_path` | Output zarr store path |
 | `freq_hours` | Time step frequency of rollout in hours (must match input data frequency) |
+| `model_repo` | Hugging Face repository ID to download model weights from |
 | `zip` | Compress output to zip |
 
 ### 3. Run inference

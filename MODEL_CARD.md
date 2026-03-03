@@ -1,6 +1,6 @@
-# Model Card for FastNet-v1.1
+# Model Card for FastNet-global
 
-**FastNet** is an data-driven medium range numerical weather prediction model developed jointly by the UK Met Office and the Alan Turing Institute. This release of FastNet v.1.1 marks the first publicly shared experimental release of the FastNet project.
+**FastNet** is an data-driven medium range numerical weather prediction model developed jointly by the UK Met Office and the Alan Turing Institute. This release of FastNet-global marks the first publicly shared experimental release of the FastNet project.
 
 FastNet produces highly skilled forecasts that overcome commonly known limitations of AI models, resulting in more physically realistic forecasts as demonstrated in the corresponding publication xxx.
 
