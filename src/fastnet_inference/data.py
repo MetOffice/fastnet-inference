@@ -22,6 +22,9 @@ from fastnet_inference.variables import (
     NONFORECAST_VARS_ORDER_FASTNET,
 )
 
+GRAVITATIONAL_ACCELERATION = 9.80665
+UNSTANDARDIZED_FEATURES = {"cos_lat", "cos_lon", "sin_lon"}
+
 
 def get_fastnet_var_order() -> tuple[list[str], list[str]]:
     forecast_ordered_vars: list[str] = []
@@ -69,6 +72,7 @@ class AnemoiERA5Dataset(Dataset):
         # will load data with feature dim order of:
         # forecast features, then nonforecast features
         ordered_vars = [*forecast_vars, *nonforecast_vars]
+        self.ordered_vars = ordered_vars
         self.ds = open_dataset(dataset_path, select=ordered_vars, start=start, end=end)
         if len(np.unique(np.diff(self.ds.dates))) > 1:
             msg = "Time periods in specified time range are not contiguous!"
@@ -80,6 +84,8 @@ class AnemoiERA5Dataset(Dataset):
             stats = json.load(f)
         self.mean = np.array(list(stats["mean"].values()))
         self.std = np.array(list(stats["stdev"].values()))
+        self.orography_idx = ordered_vars.index("orography")
+        self.unstandardized_indices = [ordered_vars.index(v) for v in UNSTANDARDIZED_FEATURES]
         # calculate actual number of data points based on rollout window
         ds_size = len(self.ds)
         if ds_size <= self.rollout_steps:
@@ -98,8 +104,12 @@ class AnemoiERA5Dataset(Dataset):
         # (no ensemble, as deterministic model)
         # we'll be throwing away all the forecast features besides the init condition!
         batch = torch.from_numpy(batch).squeeze(2).permute(0, 2, 1)
+        # Align orography units with FastNet expectations before standardization.
+        batch[..., self.orography_idx] *= GRAVITATIONAL_ACCELERATION
         # normalize by stats (anemoi-datasets yaml recipe controls window for stats calc)
         normalized = ((batch - self.mean) / self.std).float()
+        # Explicitly bypass standardization for geometry features.
+        normalized[..., self.unstandardized_indices] = batch[..., self.unstandardized_indices]
         return normalized, idx
 
 
