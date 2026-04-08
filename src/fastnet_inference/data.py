@@ -23,7 +23,7 @@ from fastnet_inference.variables import (
 )
 
 GRAVITATIONAL_ACCELERATION = 9.80665
-UNSTANDARDIZED_FEATURES = {"cos_lat", "cos_lon", "sin_lon"}
+UNSTANDARDIZED_FEATURES = {"cos_latitude", "cos_longitude", "sin_longitude"}
 
 
 def get_fastnet_var_order() -> tuple[list[str], list[str]]:
