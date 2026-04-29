@@ -102,3 +102,8 @@ Each GPU processes a contiguous chunk of init times and writes to non-overlappin
 The pretrained model weights associated with this repository are not covered by the repository's software license. 
 They are released under the Open Government Licence (OGL) v3.0 and are subject to British Crown copyright 2025, the Met Office.
 The inference code in this repository is licensed separately under the GNU Affero General Public License (AGPL) v3.0. See [LICENSE](./LICENSE) for details.
+
+## Contributors
+The following people contributed to the development of FastNet, including model design, training, and evaluation:
+
+Tom Dunstan; [Oliver Strickson](https://github.com/ots22); Thusal Bennett; Jack Bowyer; [Matthew Burnand](https://github.com/mo-mburnand); [James Chappell](https://github.com/jameschappell); [Alejandro Coca-Castro](https://github.com/acocac); Kirstine Ida Dale; Eric Daub; Noushin Eftekhari; [Manvendra Janmaijaya](https://github.com/manvendra9099); Jonathan Lillis; David Salvador-Jasin; [Nathan Simpson](https://github.com/phinate); Ryan Sze-Yin Chan; Mohamad Elmasri; Lydia Allegranza France; Sam Madge; [Sophie Luise Arana](https://github.com/aranas); Levan Bokeria; Hannah Brown; Evangeline Corcoran; Tom Dodds; Anna-Louise Ellis; Tomas Lazauskas; [David Llewellyn-Jones](https://github.com/llewelld); Theo McCaie; Sophia Moreton; Tom Potter; James Robinson; Adam Scaife; Iain Stenson; David Walters; Karina Bett-Williams; Louisa van Zeeland; Peter Yatsyshin; J. Scott Hosking
