@@ -82,6 +82,10 @@ zip: True
 | `model_repo` | Hugging Face repository ID to download model weights from |
 | `zip` | Compress output to zip |
 
+> [!NOTE]
+> Two model files are available on Hugging Face: one optimised for GPU inference and one for CPU. The appropriate file is downloaded and loaded automatically based on the hardware available at runtime.
+
+
 ### 3. Run inference
 
 ```bash
