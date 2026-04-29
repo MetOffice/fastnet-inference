@@ -73,9 +73,6 @@ jobs:
 
   hf-integration:
     runs-on: ubuntu-latest
-    # Disabled while the model repo is private (no HF_TOKEN in CI). Once the HF repo is public:
-    # TODO: remove the line below so this job runs on every CI; HF_TOKEN will not be needed.
-    if: false
     steps:
       - name: Checkout this repo
         uses: actions/checkout@v5
@@ -85,7 +82,5 @@ jobs:
         with:
           version: "latest"
 
-      - name: Run Hugging Face integration tests
-        env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      - name: Run Hugging Face Hub integration tests
         run: uv run --locked --all-extras pytest tests -m "requires_hf"

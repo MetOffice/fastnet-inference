@@ -23,9 +23,6 @@ inputs:
     path: azureml:2022-era5-orography:2
   data_path: "era5-full.zarr"
 
-environment_variables:
-  HF_TOKEN: <your-huggingface-token-here>
-
 environment:
   image: ghcr.io/astral-sh/uv:python3.12-bookworm
 
