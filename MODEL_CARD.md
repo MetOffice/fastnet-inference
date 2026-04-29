@@ -35,7 +35,7 @@ FastNet has an encode-process-decode structure with a series of graph neural net
 ## Uses
 
 ### Direct Use
-This model is intended for research and exploratory inference on historical or real-time atmospheric reanalysis inputs to produce global weather pattern predictions over a time horizon of up to ~2 days.
+This model is intended for research and exploratory inference using historical or real-time atmospheric reanalysis inputs to generate global weather-pattern predictions. Model performance has typically been evaluated for lead times of up to 10 days, although fine-tuning was focused on shorter horizons. 
 It is released for inference only: weights are provided for forward prediction, but training and fine-tuning are not supported in this release.
 
 Typical direct uses include: benchmarking against baselines, sensitivity experiments (e.g., perturbing input fields), case-study analysis of notable events
