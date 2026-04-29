@@ -92,6 +92,12 @@ zip: True
 uv run fastnet-inference --dataset-path era5-subset.zarr inference-config.yaml
 ```
 
+### Output format
+
+Writes **`output_path`** as Zarr: **`forecast`** `(init_time, lead_time, variable, grid)` plus **`latitude`/`longitude`** on **`grid`** (same ordering as the input dataset). Values are de-normalised with the loader **`mean`/`std`**.
+
+For **FastNet-global** with the default forecast channel list, the **`variable`** axis has fixed size **72**. For **O96** input data, the **`grid`** axis has size **40320** (other grids follow `len(latitude)` on the input Zarr).
+
 ### Distributed (multi-GPU)
 
 Use `torchrun` for multi-GPU inference:
