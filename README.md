@@ -106,7 +106,7 @@ uv run torchrun --nproc_per_node=8 -m fastnet_inference.cli run-pipeline inferen
 Each GPU processes a contiguous chunk of init times and writes to non-overlapping regions of the output zarr store. The `--dataset-path` argument is provided for convenience for running on e.g. AzureML, where you may want to pass mounted paths to data from blob storage in a dynamic way.
 
 ## Model Weights License
-The pretrained model weights associated with this repository are not covered by the repository's software license. 
+The pretrained model weights associated with this repository are not covered by the repository's software license.
 They are released under the Open Government Licence (OGL) v3.0 and are subject to British Crown copyright 2025, the Met Office.
 The inference code in this repository is licensed separately under the GNU Affero General Public License (AGPL) v3.0. See [LICENSE](./LICENSE) for details.
 
