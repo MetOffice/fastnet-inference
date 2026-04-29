@@ -32,7 +32,7 @@ Generate an [anemoi-datasets](https://anemoi-datasets.readthedocs.io/) compatibl
 uv run anemoi-datasets create era5-subset.yaml era5-subset.zarr
 ```
 
-The recipe (`era5-subset.yaml`) pulls from ECMWF's public ERA5 dataset and subsets to your desired date range:
+The recipe (`era5-subset.yaml`) pulls from ECMWF's public ERA5 dataset and subsets to your desired date range (currently limited up until the end of 2023):
 
 ```yaml
 name: era5-subset
@@ -52,6 +52,8 @@ input:
 
 > [!NOTE]
 > The produced dataset will have summary statistics, which are typically used when pre-processing inputs to ML models. Here, we actually package our own stats file for this to reflect what FastNet saw during training (1980-2020), so we ignore the statistics within the created dataset.
+
+
 
 ### 2. Configure inference
 
