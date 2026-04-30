@@ -2,10 +2,7 @@
 
 This repository provides the end-to-end inference pipeline for the FastNet AI weather model as used in the corresponding research paper [FastNet: Improving the physical consistency of machine-learning weather prediction models through loss function design](doi).
 
-> [!NOTE]
-> **Hugging Face authentication is required** to run inference. The model weights are hosted on Hugging Face. Before running the pipeline, set your token: `export HF_TOKEN=your_token_here`. Get a token from [huggingface.co/settings/tokens](https://huggingface.co/settings/tokens).
-
-- Downloads and loads a TorchScript checkpoint from [Hugging Face FastNet release](https://huggingface.co/MetOffice/FastNet-global)
+- Downloads and loads a TorchScript checkpoint from the public [MetOffice/FastNet-global](https://huggingface.co/MetOffice/FastNet-global) repo on the Hugging Face Hub (cached locally after first download)
 - Fetches data using anemoi
 - Preprocesses data, including normalisation statistics computed over the full training period (1980-2020)
 - Runs autoregressive rollout forecasts
@@ -82,11 +79,21 @@ zip: True
 | `model_repo` | Hugging Face repository ID to download model weights from |
 | `zip` | Compress output to zip |
 
+> [!NOTE]
+> Two model files are available on Hugging Face: one optimised for GPU inference and one for CPU. The appropriate file is downloaded and loaded automatically based on the hardware available at runtime.
+
+
 ### 3. Run inference
 
 ```bash
 uv run fastnet-inference --dataset-path era5-subset.zarr inference-config.yaml
 ```
+
+### Output format
+
+Writes **`output_path`** as Zarr: **`forecast`** `(init_time, lead_time, variable, grid)` plus **`latitude`/`longitude`** on **`grid`** (same ordering as the input dataset). Values are de-normalised with the loader **`mean`/`std`**.
+
+For **FastNet-global** with the default forecast channel list, the **`variable`** axis has fixed size **72**. For **O96** input data, the **`grid`** axis has size **40320** (other grids follow `len(latitude)` on the input Zarr).
 
 ### Distributed (multi-GPU)
 
@@ -99,7 +106,7 @@ uv run torchrun --nproc_per_node=8 -m fastnet_inference.cli run-pipeline inferen
 Each GPU processes a contiguous chunk of init times and writes to non-overlapping regions of the output zarr store. The `--dataset-path` argument is provided for convenience for running on e.g. AzureML, where you may want to pass mounted paths to data from blob storage in a dynamic way.
 
 ## Model Weights License
-The pretrained model weights associated with this repository are not covered by the repository's software license. 
+The pretrained model weights associated with this repository are not covered by the repository's software license.
 They are released under the Open Government Licence (OGL) v3.0 and are subject to British Crown copyright 2025, the Met Office.
 The inference code in this repository is licensed separately under the GNU Affero General Public License (AGPL) v3.0. See [LICENSE](./LICENSE) for details.
 
