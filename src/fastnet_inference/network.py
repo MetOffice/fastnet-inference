@@ -1,7 +1,7 @@
 """FastNet model architecture.
 
 FastNet is an encode-process-decode graph neural network for global medium-range weather
-prediction (https://arxiv.org/abs/2509.17601, with architecture details in
+prediction (https://journals.ametsoc.org/view/journals/aies/5/3/AIES-D-25-0090.1.xml, with architecture details in
 https://arxiv.org/abs/2509.17658). The atmospheric state on the O96 reduced Gaussian grid
 is encoded onto a coarser multi-scale icosahedral mesh by a bipartite interaction
 network, advanced in time by a stack of mesh-to-mesh interaction networks, and decoded
@@ -39,13 +39,15 @@ class MLP(nn.Module):
 
     def __init__(self, in_dim: int, hidden_dim: int, out_dim: int, final_norm: bool = True) -> None:
         super().__init__()
+        # in-place ReLUs are safe here (each acts on a fresh Linear output) and skip a
+        # full extra copy of every activation
         modules: list[nn.Module] = [
             nn.Linear(in_dim, hidden_dim),
-            nn.ReLU(),
+            nn.ReLU(inplace=True),
             nn.Linear(hidden_dim, out_dim),
         ]
         if final_norm:
-            modules += [nn.ReLU(), nn.LayerNorm(out_dim)]
+            modules += [nn.ReLU(inplace=True), nn.LayerNorm(out_dim)]
         self.layers = nn.Sequential(*modules)
 
     def forward(self, features: torch.Tensor) -> torch.Tensor:
@@ -73,7 +75,8 @@ class InteractionNetwork(nn.Module):
         source_features: torch.Tensor,
         edge_features: torch.Tensor,
         target_features: torch.Tensor,
-    ) -> tuple[torch.Tensor, torch.Tensor]:
+        return_edge_update: bool = False,
+    ) -> tuple[torch.Tensor | None, torch.Tensor]:
         """Compute edge updates and new target-node features.
 
         Args:
@@ -81,13 +84,18 @@ class InteractionNetwork(nn.Module):
             source_features: [batch, n_source_nodes, source_dim]
             edge_features: [batch, n_edges, edge_dim]
             target_features: [batch, n_target_nodes, target_dim]
+            return_edge_update: keep the per-edge messages alive and return them; only
+                the processor needs them, for its residual edge-feature update.
 
         Returns:
-            (edge_update [batch, n_edges, hidden], new_target_features
+            (edge_update [batch, n_edges, hidden] or None, new_target_features
             [batch, n_target_nodes, hidden]); the edge residual is applied by callers.
         """
-        proj_source_features = source_features[:, edge_index[:, 0], :]
-        edge_update = self.edge_mlp(torch.cat([proj_source_features, edge_features], dim=-1))
+        # gathering inline (rather than via a local) frees the projected source
+        # features as soon as the concatenation is built
+        edge_update = self.edge_mlp(
+            torch.cat([source_features[:, edge_index[:, 0], :], edge_features], dim=-1)
+        )
 
         # sum-aggregate edge messages onto target nodes
         node_idx = edge_index[:, 1].unsqueeze(1).expand(edge_update.shape)
@@ -95,12 +103,17 @@ class InteractionNetwork(nn.Module):
             edge_update.shape[0], target_features.shape[1], edge_update.shape[2]
         )
         aggregated.scatter_reduce_(-2, node_idx, edge_update, "sum")
+        if not return_edge_update:
+            edge_update = None
 
         # update only the (sorted, unique) target nodes that receive edges
         unique_targets = torch.unique(edge_index[:, 1])
-        new_features = self.target_mlp(
-            torch.cat([target_features[:, unique_targets], aggregated[:, unique_targets]], dim=-1)
+        mlp_input = torch.cat(
+            [target_features[:, unique_targets], aggregated[:, unique_targets]], dim=-1
         )
+        del aggregated
+        new_features = self.target_mlp(mlp_input)
+        del mlp_input
         out = new_features.new_zeros(
             target_features.shape[0], target_features.shape[1], self.hidden_dim
         )
@@ -147,7 +160,7 @@ class Processor(nn.Module):
     ) -> torch.Tensor:
         for net in self.interaction_nets:
             edge_update, node_features = net(
-                edge_index, node_features, edge_features, node_features
+                edge_index, node_features, edge_features, node_features, return_edge_update=True
             )
             edge_features = edge_features + edge_update
         return node_features
@@ -243,6 +256,9 @@ class FastNet(nn.Module):
             self.encoder_edge_index[0], grid_features, encoder_edge_features, target_features
         )
         mesh_state = self.processor(self.mesh_edge_index[0], mesh_state, mesh_edge_features)
+        # free the embedded mesh edge features before the decoder
+
+        del mesh_edge_features
         increment = self.decoder(
             self.decoder_edge_index[0], mesh_state, decoder_edge_features, grid_features
         )
