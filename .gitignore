@@ -8,3 +8,9 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Local model checkpoints
+*.safetensors
+
+# Local-only checkpoint conversion/verification tooling
+scripts/

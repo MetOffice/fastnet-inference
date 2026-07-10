@@ -47,16 +47,16 @@ class InferenceConfig:
 @torch.inference_mode()
 def _rollout_loop(
     model: torch.nn.Module,
-    forecast_features: torch.Tensor,
+    initial_state: torch.Tensor,
     non_forecast_features: torch.Tensor,
     rollout_steps: int,
 ) -> torch.Tensor:
-    device = forecast_features.device
-    # make tensor for outputs: batch, rollout, grid, variable
-    B, _, G, V = forecast_features.shape
-    forecasts = torch.empty(B, rollout_steps, G, V, device=device)
-    # get initial condition
-    current_state = forecast_features[:, 0]
+    device = initial_state.device
+    # collect outputs on the CPU: the full trajectory (batch, rollout, grid, variable)
+    # runs to ~14 GiB at batch_size=32, too big to keep on the GPU
+    B, G, V = initial_state.shape
+    forecasts = torch.empty(B, rollout_steps, G, V)
+    current_state = initial_state
     logger.info("_rollout_loop: starting %d rollout steps on %r", rollout_steps, device)
     # roll out model
     for t in range(rollout_steps):
@@ -72,7 +72,7 @@ def _rollout_loop(
         # Force CUDA sync to ensure operation completed and catch hangs accurately
         if device.type == "cuda":
             torch.cuda.synchronize(device)
-        forecasts[:, t] = current_state
+        forecasts[:, t].copy_(current_state)
         logger.info("_rollout_loop [%s]: step %d/%d - done", device, t + 1, rollout_steps)
     logger.info("_rollout_loop [%s]: finished all steps", device)
     return forecasts
@@ -169,17 +169,19 @@ def run_inference(config: InferenceConfig):
         )
         # with pin_memory=True, we can async transfer things to/from device.
         # non_blocking=True will let other CPU operations work in parallel before hitting a sync point
-        # (i.e. when (non_)forecast_features is next used.)
-        forecast_features = forecast_features.to(DEVICE, non_blocking=True)
+        # (i.e. when initial_state / non_forecast_features is next used.)
+        # the model only needs the init condition from the forecast window, so slice
+        # before transferring rather than upload rollout_steps' worth of unused data
+        initial_state = forecast_features[:, 0].to(DEVICE, non_blocking=True)
         non_forecast_features = non_forecast_features.to(DEVICE, non_blocking=True)
         predictions = _rollout_loop(
             model=model,
-            forecast_features=forecast_features,
+            initial_state=initial_state,
             non_forecast_features=non_forecast_features,
             rollout_steps=config.rollout_steps,
         )
         logger.info("Rank %r model evaluated!", rank)
-        predictions = postprocess(predictions.cpu())
+        predictions = postprocess(predictions)
         logger.info(
             "Rank %r writing predictions from %r to %r...", rank, init_time, config.output_path
         )
