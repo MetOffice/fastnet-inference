@@ -11,6 +11,3 @@ wheels/
 
 # Local model checkpoints
 *.safetensors
-
-# One-off maintenance scripts
-scripts/
