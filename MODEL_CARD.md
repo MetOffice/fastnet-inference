@@ -96,12 +96,13 @@ We also evaluate against the Met Office Global Model operational
 ## Computational Requirements
 
 ### Hardware
-For inference, FastNet-global runs on a single NVIDIA A100 GPU, though CPU inference is also supported. When using the GPU model file, we recommend a GPU with compute capability ≥ 8.0 (i.e. A100 or equivalent/higher).
+For inference, FastNet-global runs on a single NVIDIA A100 GPU, though CPU inference is also supported. For GPU inference we recommend a GPU with compute capability ≥ 8.0 (i.e. A100 or equivalent/higher).
 
 ### Software
 
 Inference dependencies are intentionally lightweight. Key packages include:
 - torch — runs the model (load + rollout)
+- safetensors — model weight storage
 - xarray / zarr / dask — geospatial and meteorological data handling
 - pyyaml — parsing inference configuration yaml files
 

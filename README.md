@@ -2,7 +2,7 @@
 
 This repository provides the end-to-end inference pipeline for the FastNet AI weather model as used in the corresponding research paper [FastNet: Improving the physical consistency of machine-learning weather prediction models through loss function design](doi).
 
-- Downloads and loads a TorchScript checkpoint from the public [MetOffice/FastNet-global](https://huggingface.co/MetOffice/FastNet-global) repo on the Hugging Face Hub (cached locally after first download)
+- Downloads and loads the model weights from the public [MetOffice/FastNet-global](https://huggingface.co/MetOffice/FastNet-global) repo on the Hugging Face Hub (cached locally after first download)
 - Fetches data using anemoi
 - Preprocesses data, including normalisation statistics computed over the full training period (1980-2020)
 - Runs autoregressive rollout forecasts
@@ -80,7 +80,7 @@ zip: True
 | `zip` | Compress output to zip |
 
 > [!NOTE]
-> Two model files are available on Hugging Face: one optimised for GPU inference and one for CPU. The appropriate file is downloaded and loaded automatically based on the hardware available at runtime.
+> Model weights are distributed as a single [safetensors](https://huggingface.co/docs/safetensors) file, which stores tensors only. The same file is used for both CPU and GPU inference.
 
 
 ### 3. Run inference
