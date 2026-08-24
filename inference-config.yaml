@@ -7,4 +7,5 @@ rollout_steps: 40
 output_path: "../outputs/forecasts.zarr"
 freq_hours: 6
 model_repo: "MetOffice/FastNet-global"
+model_repo_revision: "v1.1"
 zip: True

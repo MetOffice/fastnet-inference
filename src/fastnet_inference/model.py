@@ -5,6 +5,7 @@ import torch
 from huggingface_hub import hf_hub_download
 
 DEFAULT_MODEL_REPO_ID = "MetOffice/FastNet-global"
+DEFAULT_MODEL_REPO_REVISION = "v1.1"
 logger = logging.getLogger(__name__)
 
 
@@ -14,7 +15,9 @@ class ModelFilename(StrEnum):
 
 
 def load_model(
-    repo_id: str = DEFAULT_MODEL_REPO_ID, device: str | torch.device = "cpu"
+    repo_id: str = DEFAULT_MODEL_REPO_ID,
+    revision: str = DEFAULT_MODEL_REPO_REVISION,
+    device: str | torch.device = "cpu"
 ) -> torch.nn.Module:
     # TODO: think about non-torchscript checkpoint
     if device.lower() == "cpu":
@@ -28,7 +31,11 @@ def load_model(
         "Downloading FastNet model from %s... (will use cached model if already downloaded)",
         repo_id,
     )
-    model_path = hf_hub_download(repo_id=repo_id, filename=model_filename)
+    model_path = hf_hub_download(
+        repo_id=repo_id,
+        filename=model_filename,
+        revision=revision,
+    )
     logger.info("Model downloaded!")
     logger.info("Loading model on device %s...", device)
     model = torch.jit.load(model_path, map_location=device)
