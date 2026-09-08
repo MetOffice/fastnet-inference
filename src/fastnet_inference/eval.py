@@ -37,6 +37,7 @@ class InferenceConfig:
     end: str | None = None
     freq_hours: int = 6
     model_repo: str = "MetOffice/FastNet-global"
+    model_repo_revision: str = "v1.1"
     zip: bool = False
 
     def __post_init__(self):
@@ -98,7 +99,7 @@ def run_inference(config: InferenceConfig):
         else:
             dist.init_process_group(backend=backend, timeout=timeout, device_id=local_rank or rank)
 
-    model = load_model(repo_id=config.model_repo, device=DEVICE)
+    model = load_model(repo_id=config.model_repo, revision=config.model_repo_revision, device=DEVICE)
 
     # data setup
     forecast_vars, nonforecast_vars = get_fastnet_var_order()
