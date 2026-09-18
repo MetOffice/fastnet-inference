@@ -99,7 +99,9 @@ def run_inference(config: InferenceConfig):
         else:
             dist.init_process_group(backend=backend, timeout=timeout, device_id=local_rank or rank)
 
-    model = load_model(repo_id=config.model_repo, revision=config.model_repo_revision, device=DEVICE)
+    model = load_model(
+        repo_id=config.model_repo, revision=config.model_repo_revision, device=DEVICE
+    )
 
     # data setup
     forecast_vars, nonforecast_vars = get_fastnet_var_order()

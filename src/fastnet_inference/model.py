@@ -17,7 +17,7 @@ class ModelFilename(StrEnum):
 def load_model(
     repo_id: str = DEFAULT_MODEL_REPO_ID,
     revision: str = DEFAULT_MODEL_REPO_REVISION,
-    device: str | torch.device = "cpu"
+    device: str | torch.device = "cpu",
 ) -> torch.nn.Module:
     # TODO: think about non-torchscript checkpoint
     if device.lower() == "cpu":
